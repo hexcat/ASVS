@@ -115,49 +115,49 @@ ASVS визначає три рівні верифікації безпеки, �
 
 Наприклад, стартап на ранній стадії, який збирає обмежену кількість конфіденційних даних, може вирішити зосередитися на Рівні 1 як початковій цілі безпеки, тоді як банк навряд чи зможе виправдати перед своїми клієнтами будь-який рівень нижчий за Рівень 3 для свого застосунку для онлайн-банкінгу.
 
-## How to use the ASVS
+## Як користуватися ASVS
 
-### The structure of the ASVS
+### Структура ASVS
 
-The ASVS is made up of a total of around 350 requirements which are divided into 17 chapters, each of which is further divided into sections.
+ASVS складається приблизно з 350 вимог, які розподілені по 17 розділах, кожен із яких поділяється на секції.
 
-The aim of the chapter and section division is to simplify choosing or filtering out chapters and sections based on the what is relevant for the application. For example, for a machine-to-machine API, the requirements in chapter V3 related to web frontends will not be relevant. If there is no use of OAuth or WebRTC, then those chapters can be ignored as well.
+Метою поділу на розділи та секції є спрощення вибору або відфільтрування розділів та секцій залежно від того, що актуально для застосунку. Наприклад, для API, що працює між машинами, вимоги розділу V3, які стосуються веб-фронтендів, будуть неактуальними. Якщо ж OAuth чи WebRTC не використовуються, відповідні розділи також можна пропустити.
 
-### Release strategy
+### Стратегія релізу
 
-ASVS releases follow the pattern "Major.Minor.Patch" and the numbers provide information on what has changed within the release. In a major release, the first number will change, in a minor release, the second number will change, and in a patch release, the third number will change.
+ASVS релізи здійснюються за схемою "Major.Minor.Patch", де кожне число інформує про характер змін у релізі. У мажорному релізі змінюється перше число, у мінорному - друге, а в патч-релізі - третє.
 
-* Major release - Full reorganization, almost everything may have changed, including requirement numbers. Reevaluation for compliance will be necessary (for example, 4.0.3 -> 5.0.0).
-* Minor release - Requirements may be added or removed, but overall numbering will stay the same. Reevaluation for compliance will be necessary, but should be easier (for example, 5.0.0 -> 5.1.0).
-* Patch release - Requirements may be removed (for example, if they are duplicates or outdated) or made less stringent, but an application that complied with the previous release will comply with the patch release as well (for example, 5.0.0 -> 5.0.1).
+* Мажорний реліз - повна реорганізація, майже все може змінитися, включно з номерами вимог. Необхідна повторна оцінка відповідності (наприклад, 4.0.3 -> 5.0.0).
+* Мінорний реліз - можуть додаватися або видалятися вимоги, але загальна нумерація залишається незмінною. Повторна оцінка відповідності потрібна, але вона має бути простішою (наприклад, 5.0.0 -> 5.1.0).
+* Патч-реліз - вимоги можуть бути видалені (наприклад, якщо вони дублюються або застаріли) або пом’якшені, при цьому застосунок, який відповідав попередньому релізу, також відповідатиме цьому патчу (наприклад, 5.0.0 -> 5.0.1).
 
-The above specifically relates to the requirements in the ASVS. Changes to surrounding text and other content such as the appendices will not be considered to be a breaking change.
+Вищезазначене стосується виключно вимог у ASVS. Зміни у супровідному тексті та іншому вмісті, наприклад у додатках, не будуть вважаються зламною зміною (breaking change).
 
-### Flexibility with the ASVS
+### Гнучкість застосування ASVS
 
-Several of the points described above, such as documentation requirements and the levels mechanism, provide the ability to use the ASVS in a more flexible and organization-specific way.
+Декілька наведених вище пунктів, таких як вимоги до документації та механізм рівнів, забезпечують можливість гнучкого використання ASVS з урахуванням специфіки конкретної організації.
 
-Additionally, organizations are strongly encouraged to create an organization- or domain-specific fork that adjusts requirements based on the specific characteristics and risk levels of their applications. However, it is important to maintain traceability so that passing requirement 4.1.1 means the same across all versions.
+Крім того, організаціям настійно рекомендується створювати власну версію (форк), специфічну для організації або домену, яка коригує вимоги залежно від особливостей і рівня ризиків їхніх застосунків. Водночас важливо зберігати трасованість, щоб проходження вимоги 4.1.1 означало одне й те саме в усіх версіях.
 
-Ideally, each organization should create its own tailored ASVS, omitting irrelevant sections (e.g., GraphQL, WebSockets, SOAP, if unused). An organization-specific ASVS version or supplement is also a good place to provide organization-specific implementation guidance, detailing libraries or resources to use when complying with requirements.
+Ідеальним є створення кожною організацією власної версії ASVS, вилучаючи нерелевантні розділи (наприклад, GraphQL, WebSockets, SOAP, якщо вони не використовуються). Організаційна версія ASVS або додаток до неї також є гарним місцем для надання специфічних рекомендацій щодо впровадження, зокрема опису бібліотек чи ресурсів, які слід використовувати для виконання вимог.
 
-### How to Reference ASVS Requirements
+### Як посилатися на вимоги ASVS
 
-Each requirement has an identifier in the format `<chapter>.<section>.<requirement>`, where each element is a number. For example, `1.11.3`.
+Кожна вимога має ідентифікатор у форматі `<розділ>.<підрозділ>.<вимога>`, де кожен елемент це число. Наприклад, `1.11.3`.
 
-* The `<chapter>` value corresponds to the chapter from which the requirement comes; for example, all `1.#.#` requirements are from the 'Encoding and Sanitization' chapter.
-* The `<section>` value corresponds to the section within that chapter where the requirement appears, for example: all `1.2.#` requirements are in the 'Injection Prevention' section of the 'Encoding and Sanitization' chapter.
-* The `<requirement>` value identifies the specific requirement within the chapter and section, for example, `1.2.5` which as of version 5.0.0 of this standard is:
+* Значення `<розділ>` відповідає розділу, з якого походить вимога; наприклад, всі вимоги формату `1.#.#` належать до розділу 'Кодування та санітизація'.
+* Значення `<підрозділ>` відповідає підрозділу всередині цього розділу, де розміщена вимога; наприклад, всі вимоги формату `1.2.#` належать до підрозділу 'Запобігання ін’єкціям' розділу 'Кодування та санітизація'.
+* Значення `<вимога>` ідентифікує конкретну вимогу в межах розділу та підрозділу; наприклад, `1.2.5`, яка станом на версію 5.0.0 цього стандарту має такий зміст:
 
-> Verify that the application protects against OS command injection and that operating system calls use parameterized OS queries or use contextual command line output encoding.
+> Переконайтесь, що застосунок захищений від командних ін’єкцій ОС і також, що виклики операційної системи використовують параметризовані запити або контекстне кодування для виводу командного рядка.
 
-Since the identifiers may change between versions of the standard, it is preferable for other documents, reports, or tools to use the following format: `v<version>-<chapter>.<section>.<requirement>`, where: 'version' is the ASVS version tag. For example: `v5.0.0-1.2.5` would be understood to mean specifically the 5th requirement in the 'Injection Prevention' section of the 'Encoding and Sanitization' chapter from version 5.0.0. (This could be summarized as `v<version>-<requirement_identifier>`.)
+Оскільки ідентифікатори можуть змінюватися між версіями стандарту, бажано, щоб інші документи, звіти або інструменти використовували наступний формат: `v<версія>-<розділ>.<секція>.<вимога>`, де: `версія` це тег версії ASVS. Наприклад: `v5.0.0-1.2.5` слід розуміти як 5-ту вимогу з секції 'Запобігання ін’єкціям' розділу 'Кодування та санітизація' у версії 5.0.0. (Це можна коротко представити як `v<версія>-<ідентифікатор_вимоги>`.)
 
-Note: The `v` preceding the version number in the format should always be lowercase.
+Примітка: літера `v`, що передує номеру версії у форматі, завжди має бути написана з малої літери.
 
-If identifiers are used without including the `v<version>` element then they should be assumed to refer to the latest Application Security Verification Standard content. As the standard grows and changes this becomes problematic, which is why writers or developers should include the version element.
+Якщо ідентифікатори використовуються без включення елемента `v<версія>`, слід вважати, що вони посилаються на найновіший вміст Стандарту верифікації вимог до безпеки застосунків. Оскільки стандарт постійно розширюється та змінюється, це може створити труднощі, тому авторам документів або розробникам рекомендується завжди вказувати версію.
 
-ASVS requirement lists are made available in CSV, JSON, and other formats which may be useful for reference or programmatic use.
+Списки вимог ASVS доступні у форматах CSV, JSON та інших, що може бути зручно для посилань або програмного використання.
 
 ### Forking the ASVS
 
