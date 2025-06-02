@@ -77,43 +77,43 @@ ASVS визначає три рівні верифікації безпеки, �
 
 Щоб уникнути дублювання вимог або вимог, які вже не є релевантними на вищих рівнях, деякі вимоги застосовуються до конкретного рівня, але на вищих рівнях мають більш жорсткі умови.
 
-### Level evaluation
+### Оцінка рівнів
 
-Levels are defined by priority-based evaluation of each requirement based on experience implementing and testing security requirements. The main focus is on comparing risk reduction with the effort to implement the requirement. Another key factor is to keep a low barrier to entry.
+Рівні визначаються шляхом пріоритетної оцінки кожної вимоги на основі досвіду впровадження та тестування вимог безпеки. Основний акцент робиться на порівнянні зниження ризику із зусиллями на впровадження вимоги. Ще одним ключовим фактором є підтримання низького порогу для початку використання стандарту.
 
-Risk reduction considers the extent to which the requirement reduces the level of security risk within the application, taking into account the classic Confidentiality, Integrity, and Availability impact factors as well as considering whether this is a primary layer of defense or whether it would be considered defense in depth.
+Зниження ризику враховує ступінь, у якій вимога зменшує рівень ризику безпеки в застосунку, враховуючи класичні фактори впливу — Конфіденційність, Цілісність і Доступність, а також чи є це первинним рівнем захисту або ж глибинним захистом.
 
-The rigorous discussions around both the criteria and the leveling decisions have resulted in an allocation which should hold true for the vast majority of cases, whilst accepting that it may not be a 100% fit for every situation. This means that in certain cases, organizations may wish to prioritize requirements from a higher level earlier on based on their own specific risk considerations.
+Серйозні обговорення щодо критеріїв і рішень по рівнях призвели до розподілу, що має бути правильним для більшості випадків, водночас визнаючи, що він може не підходити 100% для кожної ситуації. Це означає, що в деяких випадках організації можуть за бажанням пріоритетизувати вимоги з вищих рівнів на ранніх етапах, враховуючи свої конкретні ризики.
 
-The types of requirements in each level could be characterized as follows.
+Типи вимог для кожного рівня можна охарактеризувати таким чином.
 
-### Level 1
+### Рівень 1
 
-This level contains the minimum requirements to consider when securing an application and represents a critical starting point. This level contains around 20% of the ASVS requirements. The goal for this level is to have as few requirements as possible, to decrease the barrier to entry.
+Цей рівень містить мінімальні вимоги, які слід враховувати при захисті застосунку, і являє собою критичну відправну точку. Він охоплює близько 20% вимог ASVS. Мета цього рівня це максимально зменшити кількість вимог, щоб знизити поріг входу.
 
-These requirements are generally critical or basic, first-layer of defense requirements for preventing common attacks that do not require other vulnerabilities or preconditions to be exploitable.
+Вимоги цього рівня, як правило, є критичними або базовими, становлять перший рівень захисту для запобігання поширеним атакам, які не потребують наявності інших вразливостей чи передумов для експлуатації.
 
-In addition to the first layer of defense requirements, some requirements have less of an impact at higher levels, such as requirements related to passwords. Those are more important for Level 1, as from higher levels, the multi-factor authentication requirements become relevant.
+Окрім вимог першого рівня захисту, деякі вимоги мають менший вплив на вищих рівнях, наприклад, ті, що стосуються паролів. Вони більш важливі для Рівня 1, адже на вищих рівнях актуальними стають вимоги багатофакторної автентифікації.
 
-Level 1 is not necessarily penetration testable by an external tester without internal access to documentation or code (such as "black box" testing), although the lower number of requirements should make it easier to verify.
+Рівень 1 не завжди можна перевірити шляхом зовнішнього пентесту без внутрішнього доступу до документації чи коду (наприклад, при "black box" тестуванні), проте менша кількість вимог має полегшувати їх верифікацію.
 
-### Level 2
+### Рівень 2
 
-Most applications should be striving to achieve this level of security. Around 50% of the requirements in the ASVS are L2 meaning that an application needs to implement around 70% of the requirements in the ASVS (all of the L1 and L2 requirements) in order to comply with L2.
+Більшість застосунків повинні прагнути досягти цього рівня безпеки. Приблизно 50% вимог ASVS належать до Рівня 2, що означає, що для відповідності цьому рівню застосунок має реалізувати близько 70% вимог ASVS (всі вимоги Рівнів 1 і 2).
 
-These requirements generally relate to either less common attacks or more complicated protections against common attacks. They may still be a first layer of defense, or they may require certain preconditions for the attack to be successful.
+Ці вимоги, як правило, стосуються менш поширених атак або складніших засобів захисту від поширених атак. Вони можуть бути першим рівнем захисту, або ж для успішної атаки необхідні певні передумови.
 
-### Level 3
+### Рівень 3
 
-This level should be the goal for applications looking to demonstrate the highest levels of security and provides the final ~30% of requirements to comply with.
+Цей рівень має бути метою для застосунків, які прагнуть продемонструвати найвищі рівні безпеки, і містить останні приблизно 30% вимог для відповідності.
 
-Requirements in this section are generally either defense-in-depth mechanisms or other useful but hard-to-implement controls.
+Вимоги цього розділу зазвичай стосуються механізмів глибинного захисту або інших корисних, але складних для впровадження заходів контролю.
 
-### Which level to achieve
+### Який рівень досягати
 
-The priority-based levels are intended to provide a reflection of the application security maturity of the organization and the application. Rather than the ASVS prescriptively stating what level an application should be at, an organization should analyze its risks and decide what level it believes it should be at, depending on the sensitivity of the application and of course, the expectations of the application's users.
+Рівні, засновані на пріоритетах, спрямовані на відображення зрілості організації та застосунку у сфері безпеки застосунків. Замість того, щоб ASVS диктував, на якому рівні має бути застосунок, організація повинна проаналізувати свої ризики та самостійно визначити, якого рівня вона прагне досягти, залежно від чутливості застосунку та, звісно, очікувань його користувачів.
 
-For example, an early-stage startup that is only collecting limited sensitive data may decide to focus on Level 1 for its initial security goals, but a bank may have difficulty justifying anything less than Level 3 to its customers for its online banking application.
+Наприклад, стартап на ранній стадії, який збирає обмежену кількість конфіденційних даних, може вирішити зосередитися на Рівні 1 як початковій цілі безпеки, тоді як банк навряд чи зможе виправдати перед своїми клієнтами будь-який рівень нижчий за Рівень 3 для свого застосунку для онлайн-банкінгу.
 
 ## How to use the ASVS
 
