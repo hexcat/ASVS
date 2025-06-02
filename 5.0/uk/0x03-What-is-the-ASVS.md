@@ -137,7 +137,7 @@ ASVS релізи здійснюються за схемою "Major.Minor.Patch"
 
 Декілька наведених вище пунктів, таких як вимоги до документації та механізм рівнів, забезпечують можливість гнучкого використання ASVS з урахуванням специфіки конкретної організації.
 
-Крім того, організаціям настійно рекомендується створювати власну версію (форк), специфічну для організації або домену, яка коригує вимоги залежно від особливостей і рівня ризиків їхніх застосунків. Водночас важливо зберігати трасованість, щоб проходження вимоги 4.1.1 означало одне й те саме в усіх версіях.
+Крім того, організаціям настійно рекомендується створювати власну версію (форк), специфічну для організації або домену, яка коригує вимоги залежно від особливостей і рівня ризиків їхніх застосунків. Водночас важливо зберігати простежуваність, щоб проходження вимоги 4.1.1 означало одне й те саме в усіх версіях.
 
 Ідеальним є створення кожною організацією власної версії ASVS, вилучаючи нерелевантні розділи (наприклад, GraphQL, WebSockets, SOAP, якщо вони не використовуються). Організаційна версія ASVS або додаток до неї також є гарним місцем для надання специфічних рекомендацій щодо впровадження, зокрема опису бібліотек чи ресурсів, які слід використовувати для виконання вимог.
 
@@ -159,38 +159,38 @@ ASVS релізи здійснюються за схемою "Major.Minor.Patch"
 
 Списки вимог ASVS доступні у форматах CSV, JSON та інших, що може бути зручно для посилань або програмного використання.
 
-### Forking the ASVS
+### Форкування ASVS
 
-Organizations can benefit from adopting ASVS by choosing one of the three levels or by creating a domain-specific fork that adjusts requirements per application risk level. This type of fork is encouraged, provided that it maintains traceability so that passing requirement 4.1.1 means the same across all versions.
+Організації можуть отримати користь від впровадження ASVS, обравши один із трьох рівнів або створивши специфічний форк для конкретного домену, який адаптує вимоги відповідно до рівня ризику для застосунку. Такий підхід заохочується, за умови збереження простежуваності, щоб проходження вимоги 4.1.1 означало одне й те саме в усіх версіях.
 
-Ideally, each organization should create its own tailored ASVS, omitting irrelevant sections (e.g., GraphQL, Websockets, SOAP, if unused). Forking should start with ASVS Level 1 as a baseline, advancing to Levels 2 or 3 based on the application’s risk.
+Ідеально, якщо кожна організація створить власну адаптовану версію ASVS, вилучивши нерелевантні розділи (наприклад, GraphQL, WebSockets, SOAP, якщо вони не використовуються). Форкування слід починати з Рівня 1 ASVS як базового, поступово переходячи до Рівнів 2 або 3 залежно від рівня ризику застосунку.
 
-## Use cases for the ASVS
+## Варіанти використання ASVS
 
-The ASVS can be used to assess the security of an application and this is explored in more depth in the next chapter. However, several other potential uses for the ASVS (or a forked version) have been identified.
+ASVS можна використовувати для оцінки безпеки застосунку і ця тема докладніше розглядається в наступному розділі. Водночас існує й кілька інших можливих сценаріїв використання ASVS (або форкованої версії), які також були визначені.
 
-### As Detailed Security Architecture Guidance
+### Як Детальний Посібник з Безпечної Архітектури
 
-One of the more common uses for the Application Security Verification Standard is as a resource for security architects. There are limited resources available for how to build a secure application archiecture, especially with modern applications. ASVS can be used to fill in those gaps by allowing security architects to choose better controls for common problems, such as data protection patterns and input validation strategies. The architecture and documentation requirements will be particularly useful for this.
+Одним із найпоширеніших способів використання Стандарту верифікації вимог до безпеки застосунків є його застосування як ресурсу для архітекторів з безпеки. Наразі існує обмежена кількість матеріалів щодо побудови безпечної архітектури застосунків, особливо сучасних. ASVS може заповнити ці прогалини, дозволяючи архітекторам з безпеки обирати кращі механізми контролю для типових задач, таких як шаблони захисту даних і стратегії валідації вхідних даних. Особливо корисними для цього будуть вимоги до архітектури та документації.
 
-### As a Specialized Secure Coding Reference
+### Як Спеціалізоване Посилання для Безпечного Кодування
 
-The ASVS can be used as a basis for preparing a secure coding reference during application development, helping developers to make sure that they keep security in mind when they build software. Whilst the ASVS can be the base, prganizations should prepare their own specific guidance which is clear and unified and ideally be prepared based on guidance from security engineers or security architects. As an extension to this, organizations are encouraged wherever possible to prepare approved security mechanisms and libraries that can be referenced in the guidance and used by developers.
+ASVS може бути використаний як основа для створення довідника з безпечного кодування під час розробки застосунків, допомагаючи розробникам враховувати аспекти безпеки при створенні програмного забезпечення. Хоча ASVS може слугувати базою, організаціям варто підготувати власні конкретні інструкції, які будуть чіткими, узгодженими та, за можливості, створеними на основі рекомендацій інженерів або архітекторів з безпеки. Крім того, організаціям рекомендується за можливості розробити затверджені механізми безпеки та бібліотеки, які можна включити в ці інструкції і використовувати під час розробки.
 
-### As a Guide for Automated Unit and Integration Tests
+### Як Настанову для Автоматизованих Юніт- та Інтеграційних тестів
 
-The ASVS is designed to be highly testable. Some verifications will be technical where as other requirements (such as the architectural and documentation requirements) may require documentation or architecture review. By building unit and integration tests that test and fuzz for specific and relevant abuse cases related to the requirements that are verifiable by technical means, it should be easier to check that these controls are operating correctly on each build. For example, additional tests can be crafted for the test suite for a login controller, testing the username parameter for common default usernames, account enumeration, brute forcing, LDAP and SQL injection, and XSS. Similarly, a test on the password parameter should include common passwords, password length, null byte injection, removing the parameter, XSS, and more.
+ASVS розроблений таким чином, щоб бути легко перевірюваним. Деякі вимоги перевіряються технічними засобами, тоді як інші (наприклад, вимоги до архітектури та документації) можуть потребувати аналізу документації або архітектури. Створюючи юніт- та інтеграційні тести, які перевіряють та проводять фаззинг на конкретні й релевантні зловмисні сценарії відповідно до технічно перевірюваних вимог, можна значно спростити перевірку того, що захисні механізми працюють належним чином у кожній збірці. Наприклад, до тестового набору для контролера входу можна додати перевірки параметра імені користувача на наявність типових імен за замовчуванням, можливість визначення існування облікових записів, брутфорсинг, ін’єкцію LDAP та SQL, XSS тощо. Аналогічно, перевірка параметра пароля повинна охоплювати поширені паролі, довжину пароля, ін’єкцію нульового байта, видалення параметра, XSS та інші атаки.
 
-### For Secure Development Training
+### Для Навчаннь з Безпечної Розробки
 
-ASVS can also be used to define the characteristics of secure software. Many “secure coding” courses are simply ethical hacking courses with a light smear of coding tips. This may not necessarily help developers to write more secure code. Instead, secure development courses can use the ASVS with a strong focus on the positive mechanisms found in the ASVS, rather than the Top 10 negative things not to do. The ASVS structure also provides a logical structure for walking through the different topics when securing an application.
+ASVS також може використовуватись для визначення характеристик безпечного програмного забезпечення. Багато курсів з "безпечного написання коду" насправді є курсами етичного хакінгу з невеликою кількістю порад щодо написання коду, що не завжди допомагає розробникам писати більш захищене ПЗ. Натомість, курси з безпечної розробки можуть використовувати ASVS, зосереджуючись на позитивних практиках і механізмах, викладених у ньому, а не лише на OWASP Top 10 - переліку речей, яких слід уникати. Структура ASVS також логічно впорядкована і добре підходить для покрокового вивчення різних аспектів забезпечення безпеки застосунків.
 
-### As a Framework for Guiding the Procurement of Secure Software
+### Як Основа для Закупівлі Безпечного Програмного Забезпечення
 
-The ASVS is a great framework to help with secure software procurement or procurement of custom development services. The buyer can simply set a requirement that the software they wish to procure must be developed at ASVS level X, and request that the seller proves that the software satisfies ASVS level X.
+ASVS є чудовою основою для організації процесу закупівлі безпечного програмного забезпечення або замовлення індивідуальних послуг з розробки. Замовник може просто встановити вимогу, що програмне забезпечення, яке він планує придбати, повинно бути розроблене відповідно до ASVS рівня X, і вимагати від постачальника підтвердження, що це програмне забезпечення відповідає ASVS рівню X.
 
-## Applying ASVS in Practice
+## Застосування ASVS на Практиці
 
-Different threats have different motivations. Some industries have unique information and technology assets and domain-specific regulatory compliance requirements.
+Різні загрози мають різні мотивації. Деякі галузі мають унікальні інформаційні та технологічні активи та регуляторні вимоги у конкретному домені.
 
-Organizations are strongly encouraged to look deeply at their unique risk characteristics based on the nature of their business, and based upon that risk and business requirements determine the appropriate ASVS level.
+Організаціям настійливо рекомендується ретельно проаналізувати свої унікальні характеристики ризиків, виходячи з характеру бізнесу, і на основі цього обрати відповідний рівень ASVS, що відповідатиме як рівню ризику, так і бізнес-вимогам.
