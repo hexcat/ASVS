@@ -50,24 +50,24 @@ This section outlines the browser security features that should be specified in 
 | **3.4.7** | Перевірити, що заголовок Content-Security-Policy вказує адресу для надсилання звітів про порушення політики. | 3 |
 | **3.4.8** | Перевірити, що всі HTTP-відповіді, які ініціюють рендеринг документа (такі як відповіді з Content-Type text/html), містять заголовок Cross-Origin-Opener-Policy з директивою same-origin або same-origin-allow-popups за потребою. Це запобігає атакам, які зловживають спільним доступом до об’єктів Window, таким як tabnabbing та frame counting. | 3 |
 
-## V3.5 Browser Origin Separation
+## V3.5 Розділення походжень у браузері
 
-When accepting a request to sensitive functionality on the server side, the application needs to ensure the request is initiated by the application itself or by a trusted party and has not been forged by an attacker.
+Під час обробки запитів до чутливої функціональності на серверній стороні, застосунок повинен переконатися, що запит було ініційовано самим застосунком або довіреною стороною, а не підроблено зловмисником.
 
-Sensitive functionality in this context could include accepting form posts for authenticated and non-authenticated users (such as an authentication request), state-changing operations, or resource-demanding functionality (such as data export).
+Під чутливою функціональністю в даному контексті мається на увазі, зокрема, обробка форм для автентифікованих і неавтентифікованих користувачів (наприклад, запит на автентифікацію), операції, що змінюють стан, або функціональність, що створює значне навантаження на ресурси, як-от експорт даних.
 
-The key protections here are browser security policies like Same Origin Policy for JavaScript and also SameSite logic for cookies. Another common protection is the CORS preflight mechanism. This mechanism will be critical for endpoints designed to be called from a different origin, but it can also be a useful request forgery prevention mechanism for endpoints which are not designed to be called from a different origin.
+Ключовими засобами захисту у цьому випадку є політики безпеки браузера, зокрема Політика однакового походження для JavaScript, а також логіка SameSite для cookies. Ще одним поширеним механізмом захисту є CORS preflight. Цей механізм є критично важливим для кінцевих точок, призначених для виклику з іншого джерела, але також може ефективно запобігати підробленим запитам і у випадках, коли виклики з іншого джерела не передбачено.
 
-| # | Description | Level |
+| # | Опис | Рівень |
 | :---: | :--- | :---: |
-| **3.5.1** | Verify that, if the application does not rely on the CORS preflight mechanism to prevent disallowed cross-origin requests to use sensitive functionality, these requests are validated to ensure they originate from the application itself. This may be done by using and validating anti-forgery tokens or requiring extra HTTP header fields that are not CORS-safelisted request-header fields. This is to defend against browser-based request forgery attacks, commonly known as cross-site request forgery (CSRF). | 1 |
-| **3.5.2** | Verify that, if the application relies on the CORS preflight mechanism to prevent disallowed cross-origin use of sensitive functionality, it is not possible to call the functionality with a request which does not trigger a CORS-preflight request. This may require checking the values of the 'Origin' and 'Content-Type' request header fields or using an extra header field that is not a CORS-safelisted header-field. | 1 |
-| **3.5.3** | Verify that HTTP requests to sensitive functionality use appropriate HTTP methods such as POST, PUT, PATCH, or DELETE, and not methods defined by the HTTP specification as "safe" such as HEAD, OPTIONS, or GET. Alternatively, strict validation of the Sec-Fetch-* request header fields can be used to ensure that the request did not originate from an inappropriate cross-origin call, a navigation request, or a resource load (such as an image source) where this is not expected. | 1 |
-| **3.5.4** | Verify that separate applications are hosted on different hostnames to leverage the restrictions provided by same-origin policy, including how documents or scripts loaded by one origin can interact with resources from another origin and hostname-based restrictions on cookies. | 2 |
-| **3.5.5** | Verify that messages received by the postMessage interface are discarded if the origin of the message is not trusted, or if the syntax of the message is invalid. | 2 |
-| **3.5.6** | Verify that JSONP functionality is not enabled anywhere across the application to avoid Cross-Site Script Inclusion (XSSI) attacks. | 3 |
-| **3.5.7** | Verify that data requiring authorization is not included in script resource responses, like JavaScript files, to prevent Cross-Site Script Inclusion (XSSI) attacks. | 3 |
-| **3.5.8** | Verify that authenticated resources (such as images, videos, scripts, and other documents) can be loaded or embedded on behalf of the user only when intended. This can be accomplished by strict validation of the Sec-Fetch-* HTTP request header fields to ensure that the request did not originate from an inappropriate cross-origin call, or by setting a restrictive Cross-Origin-Resource-Policy HTTP response header field to instruct the browser to block returned content. | 3 |
+| **3.5.1** | Перевірити, що якщо застосунок не покладається на механізм CORS preflight для запобігання забороненим крос-доменним запитам до використання чутливої функціональності, то такі запити мають пройти перевірку, щоб переконатися, що вони дійсно походять від самого застосунку. Це може бути реалізовано шляхом використання й перевірки anti-forgery токенів або вимогою наявності додаткових HTTP-заголовків, які не входять до списку CORS-safelisted заголовків запиту. Це необхідно для захисту від атак типу Cross-Site Request Forgery (CSRF), що базуються на підроблених запитах з боку браузера. | 1 |
+| **3.5.2** | Перевірити, що якщо застосунок покладається на механізм CORS preflight для запобігання забороненим крос-доменним запитам до використання чутливої функціональності, то не повинна бути можливість для виклику цієї функціональністі за допомогою запиту, який не запускає CORS preflight. Для цього може знадобитися перевірка значень заголовків запиту 'Origin' та 'Content-Type' або вимогою наявності додаткових HTTP-заголовків, які не входять до списку CORS-safelisted заголовків запиту. | 1 |
+| **3.5.3** | Перевірити, що HTTP-запити до чутливої функціональності використовують відповідні HTTP-методи, такі як POST, PUT, PATCH або DELETE, а не методи, визначені в HTTP-специфікації як "безпечні", наприклад HEAD, OPTIONS або GET. Як альтернативу, можна застосувати сувору перевірку заголовків запиту Sec-Fetch-*, щоб упевнитися, що запит не був ініційований у результаті небажаного крос-доменного виклику, навігаційного запиту або завантаження ресурсу (такого як зображення), де цього не очікують. | 1 |
+| **3.5.4** | Перевірити, що окремі застосунки розміщені на різних іменах хостів, щоб скористатися обмеженнями, які накладає Політика того ж походження (Same-Origin Policy), включаючи такі аспекти, як те, як документи або скрипти, що завантажені з одного походження, можуть взаємодіяти з ресурсами з іншого походження, а також обмеження на cookies, що базуються на імені хоста. | 2 |
+| **3.5.5** | Перевірити, що повідомлення, отримані через інтерфейс postMessage, ігноруються, якщо походження повідомлення не є довіреним або якщо синтаксис повідомлення недійсний. | 2 |
+| **3.5.6** | Перевірити, що функціональність JSONP не ввімкнена в жодній частині застосунку, щоб уникнути атак Cross-Site Script Inclusion (XSSI). | 3 |
+| **3.5.7** | Перевірити, що дані, які потребують авторизації, не включаються у відповіді з ресурсами скриптів, такими як JavaScript-файли, щоб запобігти атакам Cross-Site Script Inclusion (XSSI). | 3 |
+| **3.5.8** | Перевірити, що автентифіковані ресурси (такі як зображення, відео, скрипти та інші документи) можуть завантажуватись або вбудовуватись від імені користувача лише за умови, що це є очікуваною дією. Це може бути досягнуто шляхом суворої перевірки значень HTTP-заголовків Sec-Fetch-*, щоб упевнитися, що запит не надійшов у результаті небажаного крос-доменного виклику, або ж через встановлення обмежувального заголовка відповіді Cross-Origin-Resource-Policy, який вказує браузеру блокувати отриманий вміст. | 3 |
 
 ## V3.6 Цілісність зовнішніх ресурсів
 
@@ -77,17 +77,17 @@ The key protections here are browser security policies like Same Origin Policy f
 | :---: | :--- | :---: |
 | **3.6.1** | Перевірити, що клієнтські ресурси, такі як JavaScript-бібліотеки, CSS або веб-шрифти, розміщуються на зовнішніх ресурсах (наприклад, на Content Delivery Network) лише у випадку, якщо цей ресурс є статичним, має версіонування та використовує механізм перевірки цілісності підресурсів (Subresource Integrity, SRI). Якщо це неможливо, має існувати задокументоване обґрунтоване рішення з безпеки для кожного такого ресурсу. | 3 |
 
-## V3.7 Other Browser Security Considerations
+## V3.7 Інші міркування щодо безпеки браузера
 
-This section includes various other security controls and modern browser security features required for client-side browser security.
+У цьому розділі розглядаються додаткові механізми захисту та сучасні можливості безпеки браузерів, які є необхідними для забезпечення клієнтської безпеки на стороні браузера.
 
-| # | Description | Level |
+| # | Опис | Рівень |
 | :---: | :--- | :---: |
-| **3.7.1** | Verify that the application only uses client-side technologies which are still supported and considered secure. Examples of technologies which do not meet this requirement include NSAPI plugins, Flash, Shockwave, ActiveX, Silverlight, NACL, or client-side Java applets. | 2 |
-| **3.7.2** | Verify that the application will only automatically redirect the user to a different hostname or domain (which is not controlled by the application) where the destination appears on an allowlist. | 2 |
-| **3.7.3** | Verify that the application shows a notification when the user is being redirected to a URL outside of the application's control, with an option to cancel the navigation. | 3 |
-| **3.7.4** | Verify that the application's top-level domain (e.g., site.tld) is added to the public preload list for HTTP Strict Transport Security (HSTS). This ensures that the use of TLS for the application is built directly into the main browsers, rather than relying only on the Strict-Transport-Security response header field. | 3 |
-| **3.7.5** | Verify that the application behaves as documented (such as warning the user or blocking access) if the browser used to access the application does not support the expected security features. | 3 |
+| **3.7.1** | Перевірити, що застосунок використовує лише ті клієнтські технології, які наразі підтримуються та вважаються безпечними. Прикладами застарілих або небезпечних технологій, що не відповідають цій вимозі, є: NSAPI-плагіни, Flash, Shockwave, ActiveX, Silverlight, NACL або клієнтські Java-аплети. | 2 |
+| **3.7.2** | Перевірити, що застосунок автоматично перенаправляє користувача на інший хост або домен (який не контролюється самим застосунком) лише у випадках, коли відповідна адреса-призначення внесена до списку дозволених адрес-призначень. | 2 |
+| **3.7.3** | Перевірити, що застосунок відображає нотифікацію під час перенаправлення користувача на URL-адресу, яка не знаходиться під контролем застосунку, із можливістю скасувати перехід. | 3 |
+| **3.7.4** | Перевірити, що домен верхнього рівня застосунку (наприклад, site.tld) додано до публічного попереднього списку (preload list) для політики HTTP Strict Transport Security (HSTS). Це гарантує, що використання TLS вбудоване безпосередньо в основні браузери, а не буде базуватись лише на заголовку Strict-Transport-Security. | 3 |
+| **3.7.5** | Перевірте, що застосунок поводиться згідно з документацією (наприклад, попереджає користувача або блокує доступ), якщо браузер, який використовується для доступу, не підтримує очікувані механізми безпеки. | 3 |
 
 ## Посилання
 
