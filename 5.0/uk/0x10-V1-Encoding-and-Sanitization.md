@@ -17,26 +17,26 @@
 | **1.1.1** | Перевірити, що вхідні дані декодуються або розекрановуються у канонічну форму лише один раз, декодування відбувається лише тоді, коли очікуються закодовані дані у цій формі, і що це виконується до подальшої обробки вхідних даних, зокрема не після валідації чи санітизації вхідних даних. | 2 |
 | **1.1.2** | Перевірити, що застосунок виконує кодування та екранування вихідних даних або як фінальний крок перед використанням інтерпретатором, для якого вони призначені, або безпосередньо самим інтерпретатором. | 2 |
 
-## V1.2 Injection Prevention
+## V1.2 Запобігання ін’єкціям
 
-Output encoding or escaping, performed close to or adjacent to a potentially dangerous context, is critical to the security of any application. Typically, output encoding and escaping are not persisted, but are instead used to render output safe for immediate use in the appropriate interpreter. Attempting to perform this too early may result in malformed content or render the encoding or escaping ineffective.
+Кодування або екранування вихідних даних, виконувані безпосередньо в контексті, де існує потенційна загроза, є критично важливими для безпеки будь-якого застосунку. Зазвичай кодування та екранування не зберігаються, а застосовуються безпосередньо перед відображенням, щоб зробити вміст безпечним і готовим до негайного використання відповідним інтерпретатором. Занадто раннє виконання цих операцій може призвести до пошкодження контенту або зробити кодування чи екранування неефективними.
 
-In many cases, software libraries include safe or safer functions that perform this automatically, although it is necessary to ensure that they are correct for the current context.
+Часто програмні бібліотеки містять безпечні або більш безпечні функції, які виконують це автоматично, проте необхідно переконатися, що вони правильно працюють у поточному контексті.
 
-| # | Description | Level |
+| # | Опис | Рівень |
 | :---: | :--- | :---: |
-| **1.2.1** | Verify that output encoding for an HTTP response, HTML document, or XML document is relevant for the context required, such as encoding the relevant characters for HTML elements, HTML attributes, HTML comments, CSS, or HTTP header fields, to avoid changing the message or document structure. | 1 |
-| **1.2.2** | Verify that when dynamically building URLs, untrusted data is encoded according to its context (e.g., URL encoding or base64url encoding for query or path parameters). Ensure that only safe URL protocols are permitted (e.g., disallow javascript: or data:). | 1 |
-| **1.2.3** | Verify that output encoding or escaping is used when dynamically building JavaScript content (including JSON), to avoid changing the message or document structure (to avoid JavaScript and JSON injection). | 1 |
-| **1.2.4** | Verify that data selection or database queries (e.g., SQL, HQL, NoSQL, Cypher) use parameterized queries, ORMs, entity frameworks, or are otherwise protected from SQL Injection and other database injection attacks. This is also relevant when writing stored procedures. | 1 |
-| **1.2.5** | Verify that the application protects against OS command injection and that operating system calls use parameterized OS queries or use contextual command line output encoding. | 1 |
-| **1.2.6** | Verify that the application protects against LDAP injection vulnerabilities, or that specific security controls to prevent LDAP injection have been implemented. | 2 |
-| **1.2.7** | Verify that the application is protected against XPath injection attacks by using query parameterization or precompiled queries. | 2 |
-| **1.2.8** | Verify that LaTeX processors are configured securely (such as not using the "--shell-escape" flag) and an allowlist of commands is used to prevent LaTeX injection attacks. | 2 |
-| **1.2.9** | Verify that the application escapes special characters in regular expressions (typically using a backslash) to prevent them from being misinterpreted as metacharacters. | 2 |
-| **1.2.10** | Verify that the application is protected against CSV and Formula Injection. The application must follow the escaping rules defined in RFC 4180 sections 2.6 and 2.7 when exporting CSV content. Additionally, when exporting to CSV or other spreadsheet formats (such as XLS, XLSX, or ODF), special characters (including '=', '+', '-', '@', '\t' (tab), and '\0' (null character)) must be escaped with a single quote if they appear as the first character in a field value. | 3 |
+| **1.2.1** | Перевірити, що кодування вихідних даних для HTTP-відповіді, HTML-документа або XML-документа відповідає необхідному контексту, такому як кодування відповідних символів для HTML-елементів, атрибутів HTML, HTML-коментарів, CSS або полів HTTP-заголовків, щоб уникнути зміни повідомлення або структури документа. | 1 |
+| **1.2.2** | Перевірити, що при динамічному формуванні URL-адрес недовірені дані кодуються відповідно до їх контексту (наприклад, URL-кодування або base64url-кодування для параметрів запиту чи шляху). Забезпечити, щоб дозволялися лише безпечні протоколи URL (наприклад, заборонити javascript: або data:). | 1 |
+| **1.2.3** | Перевірити, що кодування або екранування вихідних даних застосовується при динамічному формуванні JavaScript-вмісту (включно з JSON), щоб уникнути зміни структури повідомлення чи документа (щоб запобігти JavaScript- та JSON-ін’єкціям). | 1 |
+| **1.2.4** | Перевірити, що для вибірки даних або запитів до бази даних (наприклад, SQL, HQL, NoSQL, Cypher) використовуються параметризовані запити, ORM, entity Frameworks або інші методи захисту від SQL-ін’єкцій та інших атак на бази даних. Це також стосується написання збережених процедур. | 1 |
+| **1.2.5** | Перевірити, що застосунок захищений від OS command injection та що виклики операційної системи здійснюються із використанням параметризованих запитів ОС або контекстного кодування виводу командного рядка. | 1 |
+| **1.2.6** | Перевірити, що застосунок захищений від вразливостей LDAP-ін’єкції або що впроваджені конкретні заходи безпеки для запобігання LDAP-ін’єкції. | 2 |
+| **1.2.7** | Перевірити, що застосунок захищений від атак XPath-ін’єкції шляхом використання параметризованих або попередньокомпільованих запитів. | 2 |
+| **1.2.8** | Перевірити, що LaTeX-процесори налаштовані безпечно (наприклад, без використання прапорця "--shell-escape") та використовується список дозволених команд для запобігання атакам типу LaTeX-ін’єкції. | 2 |
+| **1.2.9** | Перевірити, що застосунок екранує спеціальні символи в регулярних виразах (зазвичай за допомогою зворотного слеша), щоб запобігти їх некоректній інтерпретації як метасимволів. | 2 |
+| **1.2.10** | Перевірити, що застосунок захищений від CSV-ін’єкцій та ін’єкцій формул. Застосунок повинен дотримуватися правил екранування, визначених у розділах 2.6 і 2.7 RFC 4180 під час експорту у формат CSV. Крім того, при експорті у CSV або інші табличні формати (наприклад, XLS, XLSX, ODF) спеціальні символи (включно з '=', '+', '-', '@', '\t' (табуляція) та '\0' (нульовий символ)) повинні екрануватися одинарною лапкою, якщо вони є першим символом у значенні поля. | 3 |
 
-Note: Using parameterized queries or escaping SQL is not always sufficient. Query parts such as table and column names (including "ORDER BY" column names) cannot be escaped. Including escaped user-supplied data in these fields results in failed queries or SQL injection.
+Примітка: Використання параметризованих запитів або екранування SQL не завжди є достатнім. Частини запиту, такі як імена таблиць і стовпців (включно з іменами стовпців у "ORDER BY"), не можуть бути екрановані. Якщо у цих полях використовувати екрановані дані, отримані від користувача, це призведе до помилок у запитах або SQL-ін’єкцій.
 
 ## V1.3 Sanitization
 
