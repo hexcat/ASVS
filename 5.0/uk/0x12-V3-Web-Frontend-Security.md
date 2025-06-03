@@ -30,25 +30,25 @@ This section outlines the browser security features that should be specified in 
 | # | Опис | Рівень |
 | :---: | :--- | :---: |
 | **3.3.1** | Перевірити, що для cookies встановлено атрибут 'Secure', і якщо для імені cookie не використовується префікс '\__Host-', то обов’язково має використовуватися префікс '__Secure-'. | 1 |
-| **3.3.2** | Перевірити, що значення атрибута 'SameSite' для кожного cookie встановлено відповідно до призначення цього cookie, щоб обмежити вплив атак на користувацький інтерфейс (user interface redress attacks) та браузерних атак типу підробки міжсайтових запитів (CSRF). | 2 |
+| **3.3.2** | Перевірити, що значення атрибута 'SameSite' встановлено для кожного cookie відповідно до призначення цього cookie, щоб обмежити вплив атак на користувацький інтерфейс (user interface redress attacks) та браузерних атак типу підробки міжсайтових запитів (CSRF). | 2 |
 | **3.3.3** | Перевірити, що cookie мають префікс '__Host-' в імені, якщо вони явно не призначені для спільного використання з іншими хостами. | 2 |
 | **3.3.4** | Перевірити, що якщо значення cookie не повинно бути доступним для клієнтських скриптів (таких як токен сесії), то для такого cookie має бути встановлено атрибут 'HttpOnly', і це саме значення (наприклад, токен сесії) повинно передаватися клієнту лише через заголовок 'Set-Cookie'. | 2 |
 | **3.3.5** | Перевірити, що при записі cookie сумарна довжина імені та значення cookie не перевищує 4096 байтів. Надто великі cookie не зберігатимуться браузером і, відповідно, не надсилатимуться із запитами, що призведе до неможливості користування функціоналом застосунку, який залежить від цього cookie. | 3 |
 
-## V3.4 Browser Security Mechanism Headers
+## V3.4 Заголовки механізмів безпеки браузера
 
-This section describes which security headers should be set on HTTP responses to enable browser security features and restrictions when handling responses from the application.
+У цьому розділі описано, які заголовки безпеки слід встановлювати у HTTP-відповідях для ввімкнення механізмів безпеки браузера та обмежень під час обробки відповідей від застосунку.
 
-| # | Description | Level |
+| # | Опис | Рівень |
 | :---: | :--- | :---: |
-| **3.4.1** | Verify that a Strict-Transport-Security header field is included on all responses to enforce an HTTP Strict Transport Security (HSTS) policy. A maximum age of at least 1 year must be defined, and for L2 and up, the policy must apply to all subdomains as well. | 1 |
-| **3.4.2** | Verify that the Cross-Origin Resource Sharing (CORS) Access-Control-Allow-Origin header field is a fixed value by the application, or if the Origin HTTP request header field value is used, it is validated against an allowlist of trusted origins. When 'Access-Control-Allow-Origin: *' needs to be used, verify that the response does not include any sensitive information. | 1 |
-| **3.4.3** | Verify that HTTP responses include a Content-Security-Policy response header field which defines directives to ensure the browser only loads and executes trusted content or resources, in order to limit execution of malicious JavaScript. As a minimum, a global policy must be used which includes the directives object-src 'none' and base-uri 'none' and defines either an allowlist or uses nonces or hashes. For an L3 application, a per-response policy with nonces or hashes must be defined. | 2 |
-| **3.4.4** | Verify that all HTTP responses contain an 'X-Content-Type-Options: nosniff' header field. This instructs browsers not to use content sniffing and MIME type guessing for the given response, and to require the response's Content-Type header field value to match the destination resource. For example, the response to a request for a style is only accepted if the response's Content-Type is 'text/css'. This also enables the use of the Cross-Origin Read Blocking (CORB) functionality by the browser. | 2 |
-| **3.4.5** | Verify that the application sets a referrer policy to prevent leakage of technically sensitive data to third-party services via the 'Referer' HTTP request header field. This can be done using the Referrer-Policy HTTP response header field or via HTML element attributes. Sensitive data could include path and query data in the URL, and for internal non-public applications also the hostname. | 2 |
-| **3.4.6** | Verify that the web application uses the frame-ancestors directive of the Content-Security-Policy header field for every HTTP response to ensure that it cannot be embedded by default and that embedding of specific resources is allowed only when necessary. Note that the X-Frame-Options header field, although supported by browsers, is obsolete and may not be relied upon. | 2 |
-| **3.4.7** | Verify that the Content-Security-Policy header field specifies a location to report violations. | 3 |
-| **3.4.8** | Verify that all HTTP responses that initiate a document rendering (such as responses with Content-Type text/html), include the Cross‑Origin‑Opener‑Policy header field with the same-origin directive or the same-origin-allow-popups directive as required. This prevents attacks that abuse shared access to Window objects, such as tabnabbing and frame counting. | 3 |
+| **3.4.1** | Перевірити, що у всіх відповідях встановлено заголовок Strict-Transport-Security для застосування політики HTTP Strict Transport Security (HSTS). Має бути визначено максимальний термін дії, а саме не менше одного року, а для рівня L2 і вище політика повинна поширюватися також на всі піддомени. | 1 |
+| **3.4.2** | Перевірити, що заголовок Cross-Origin Resource Sharing (CORS) Access-Control-Allow-Origin має фіксоване значення, встановлене застосунком, або, якщо використовується значення заголовка Origin HTTP-запиту, воно проходить перевірку за списком довірених джерел. Якщо потрібно використовувати 'Access-Control-Allow-Origin: *', то перевірити, що відповідь не містить жодної конфіденційної інформації. | 1 |
+| **3.4.3** | Перевірити, що HTTP-відповіді містять заголовок Content-Security-Policy, який визначає директиви, що забезпечують завантаження та виконання браузером лише довіреного контенту або ресурсів, щоб обмежити виконання шкідливого JavaScript. Мінімально має бути використана глобальна політика, яка містить директиви object-src 'none' та base-uri 'none', а також визначає список дозволених ресурсів або використовує nonces чи хеші. Для застосунку рівня L3 має бути визначена політика на кожну відповідь з використанням nonces або хешів. | 2 |
+| **3.4.4** | Перевірити, що всі HTTP-відповіді містять заголовок 'X-Content-Type-Options: nosniff'. Цей заголовок вказує браузерам не використовувати content sniffing та не вгадувати MIME-тип для наданої відповіді, а вимагати, щоб значення заголовка Content-Type відповідало типу запитуваного ресурсу. Наприклад, відповідь на запит стилю приймається лише якщо Content-Type відповіді має значення 'text/css'. Це також дозволяє браузеру використовувати функціонал Cross-Origin Read Blocking (CORB). | 2 |
+| **3.4.5** | Перевірити, що застосунок встановлює referrer policy для запобігання витоку технічно чутливих даних до сторонніх сервісів через заголовок HTTP-запиту 'Referer'. Це може бути зроблено через HTTP-заголовок Referrer-Policy або через атрибути HTML-елементів. Чутливі дані можуть включати шлях та параметри запиту у URL, а для внутрішніх непублічних застосунків — також ім’я хоста. | 2 |
+| **3.4.6** | Перевірити, що веб-застосунок у всіх HTTP-відповідях використовує директиву frame-ancestors у заголовку Content-Security-Policy, щоб за замовчуванням заборонити вбудовування конкретних ресурсів і дозволяти їх вбудовування лише у разі необхідності. Зверніть увагу, що заголовок X-Frame-Options, хоча й підтримується браузерами, але він є застарілим  і не повинен використовуватись як основний механізм захисту. | 2 |
+| **3.4.7** | Перевірити, що заголовок Content-Security-Policy вказує адресу для надсилання звітів про порушення політики. | 3 |
+| **3.4.8** | Перевірити, що всі HTTP-відповіді, які ініціюють рендеринг документа (такі як відповіді з Content-Type text/html), містять заголовок Cross-Origin-Opener-Policy з директивою same-origin або same-origin-allow-popups за потребою. Це запобігає атакам, які зловживають спільним доступом до об’єктів Window, таким як tabnabbing та frame counting. | 3 |
 
 ## V3.5 Browser Origin Separation
 
@@ -69,13 +69,13 @@ The key protections here are browser security policies like Same Origin Policy f
 | **3.5.7** | Verify that data requiring authorization is not included in script resource responses, like JavaScript files, to prevent Cross-Site Script Inclusion (XSSI) attacks. | 3 |
 | **3.5.8** | Verify that authenticated resources (such as images, videos, scripts, and other documents) can be loaded or embedded on behalf of the user only when intended. This can be accomplished by strict validation of the Sec-Fetch-* HTTP request header fields to ensure that the request did not originate from an inappropriate cross-origin call, or by setting a restrictive Cross-Origin-Resource-Policy HTTP response header field to instruct the browser to block returned content. | 3 |
 
-## V3.6 External Resource Integrity
+## V3.6 Цілісність зовнішніх ресурсів
 
-This section provides guidance for the safe hosting of content on third-party sites.
+Ця секція містить рекомендації щодо безпечного використання контенту, розміщеного на сторонніх сайтах.
 
-| # | Description | Level |
+| # | Опис | Рівень |
 | :---: | :--- | :---: |
-| **3.6.1** | Verify that client-side assets, such as JavaScript libraries, CSS, or web fonts, are only hosted externally (e.g., on a Content Delivery Network) if the resource is static and versioned and Subresource Integrity (SRI) is used to validate the integrity of the asset. If this is not possible, there should be a documented security decision to justify this for each resource. | 3 |
+| **3.6.1** | Перевірити, що клієнтські ресурси, такі як JavaScript-бібліотеки, CSS або веб-шрифти, розміщуються на зовнішніх ресурсах (наприклад, на Content Delivery Network) лише у випадку, якщо цей ресурс є статичним, має версіонування та використовує механізм перевірки цілісності підресурсів (Subresource Integrity, SRI). Якщо це неможливо, має існувати задокументоване обґрунтоване рішення з безпеки для кожного такого ресурсу. | 3 |
 
 ## V3.7 Other Browser Security Considerations
 
@@ -89,9 +89,9 @@ This section includes various other security controls and modern browser securit
 | **3.7.4** | Verify that the application's top-level domain (e.g., site.tld) is added to the public preload list for HTTP Strict Transport Security (HSTS). This ensures that the use of TLS for the application is built directly into the main browsers, rather than relying only on the Strict-Transport-Security response header field. | 3 |
 | **3.7.5** | Verify that the application behaves as documented (such as warning the user or blocking access) if the browser used to access the application does not support the expected security features. | 3 |
 
-## References
+## Посилання
 
-For more information, see also:
+Для додаткової інформації дивіться також:
 
 * [Set-Cookie __Host- prefix details](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#cookie_prefixes)
 * [OWASP Content Security Policy Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html)
