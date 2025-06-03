@@ -13,27 +13,27 @@ This section outlines the browser security features that should be specified in 
 | :---: | :--- | :---: |
 | **3.1.1** | Перевірити, що документація застосунку вказує на очікувані механізми безпеки, які мають підтримувати браузери, що використовують застосунок (наприклад, HTTPS, HTTP Strict Transport Security (HSTS), Content Security Policy (CSP) та інші відповідні HTTP-механізми безпеки). Також має бути визначено, як застосунок повинен поводитися у випадках відсутності деяких із цих механізмів (наприклад, попереджати користувача або блокувати доступ). | 3 |
 
-## V3.2 Unintended Content Interpretation
+## V3.2 Ненавмисне інтерпретування вмісту
 
-Rendering content or functionality in an incorrect context can result in malicious content being executed or displayed.
+Відображення вмісту або функціональності в неправильному контексті може призвести до виконання або відображення зловмисного контенту.
 
-| # | Description | Level |
+| # | Опис | Рівень |
 | :---: | :--- | :---: |
-| **3.2.1** | Verify that security controls are in place to prevent browsers from rendering content or functionality in HTTP responses in an incorrect context (e.g., when an API, a user-uploaded file or other resource is requested directly). Possible controls could include: not serving the content unless HTTP request header fields (such as Sec-Fetch-\*) indicate it is the correct context, using the sandbox directive of the Content-Security-Policy header field or using the attachment disposition type in the Content-Disposition header field. | 1 |
-| **3.2.2** | Verify that content intended to be displayed as text, rather than rendered as HTML, is handled using safe rendering functions (such as createTextNode or textContent) to prevent unintended execution of content such as HTML or JavaScript. | 1 |
-| **3.2.3** | Verify that the application avoids DOM clobbering when using client-side JavaScript by employing explicit variable declarations, performing strict type checking, avoiding storing global variables on the document object, and implementing namespace isolation. | 3 |
+| **3.2.1** | Перевірити, що впроваджено заходи безпеки, які запобігають відображенню браузером контенту або функціональності HTTP-відповідей у неправильному контексті (наприклад, при безпосередньому запиті до API, файлу, завантаженого користувачем, або іншого ресурсу). Можливі заходи можуть включати: не обслуговування контенту, якщо заголовки HTTP-запиту (такі як Sec-Fetch-\*) не вказують на правильний контекст; використання директиви sandbox у заголовку Content-Security-Policy; або тип attachment disposition у заголовку Content-Disposition. | 1 |
+| **3.2.2** | Перевірити, що вміст, призначений для відображення як текст, а не для рендерингу як HTML, обробляється за допомогою безпечних функцій відображення (наприклад, createTextNode або textContent) для запобігання ненавмисному виконанню контенту, такого як HTML або JavaScript. | 1 |
+| **3.2.3** | Перевірити, що застосунок запобігає DOM clobbering при використанні клієнтського JavaScript шляхом явного оголошення змінних, суворої перевірки типів, уникнення збереження глобальних змінних у об’єкті document та впровадження namespace isolation. | 3 |
 
-## V3.3 Cookie Setup
+## V3.3 Налаштування cookie
 
-This section outlines requirements for securely configuring sensitive cookies to provide a higher level of assurance that they were created by the application itself and to prevent their contents from leaking or being inappropriately modified.
+Цей розділ окреслює вимоги щодо безпечного налаштування чутливих cookies з метою забезпечення більш високого рівня впевненості, що вони створені саме самим застосунком, а також для запобігання витоку їх контенту або його неправомірній зміні.
 
-| # | Description | Level |
+| # | Опис | Рівень |
 | :---: | :--- | :---: |
-| **3.3.1** | Verify that cookies have the 'Secure' attribute set, and if the '\__Host-' prefix is not used for the cookie name, the '__Secure-' prefix must be used for the cookie name. | 1 |
-| **3.3.2** | Verify that each cookie's 'SameSite' attribute value is set according to the purpose of the cookie, to limit exposure to user interface redress attacks and browser-based request forgery attacks, commonly known as cross-site request forgery (CSRF). | 2 |
-| **3.3.3** | Verify that cookies have the '__Host-' prefix for the cookie name unless they are explicitly designed to be shared with other hosts. | 2 |
-| **3.3.4** | Verify that if the value of a cookie is not meant to be accessible to client-side scripts (such as a session token), the cookie must have the 'HttpOnly' attribute set and the same value (e. g. session token) must only be transferred to the client via the 'Set-Cookie' header field. | 2 |
-| **3.3.5** | Verify that when the application writes a cookie, the cookie name and value length combined are not over 4096 bytes. Overly large cookies will not be stored by the browser and therefore not sent with requests, preventing the user from using application functionality which relies on that cookie. | 3 |
+| **3.3.1** | Перевірити, що для cookies встановлено атрибут 'Secure', і якщо для імені cookie не використовується префікс '\__Host-', то обов’язково має використовуватися префікс '__Secure-'. | 1 |
+| **3.3.2** | Перевірити, що значення атрибута 'SameSite' для кожного cookie встановлено відповідно до призначення цього cookie, щоб обмежити вплив атак на користувацький інтерфейс (user interface redress attacks) та браузерних атак типу підробки міжсайтових запитів (CSRF). | 2 |
+| **3.3.3** | Перевірити, що cookie мають префікс '__Host-' в імені, якщо вони явно не призначені для спільного використання з іншими хостами. | 2 |
+| **3.3.4** | Перевірити, що якщо значення cookie не повинно бути доступним для клієнтських скриптів (таких як токен сесії), то для такого cookie має бути встановлено атрибут 'HttpOnly', і це саме значення (наприклад, токен сесії) повинно передаватися клієнту лише через заголовок 'Set-Cookie'. | 2 |
+| **3.3.5** | Перевірити, що при записі cookie сумарна довжина імені та значення cookie не перевищує 4096 байтів. Надто великі cookie не зберігатимуться браузером і, відповідно, не надсилатимуться із запитами, що призведе до неможливості користування функціоналом застосунку, який залежить від цього cookie. | 3 |
 
 ## V3.4 Browser Security Mechanism Headers
 
