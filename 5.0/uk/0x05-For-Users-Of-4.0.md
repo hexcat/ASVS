@@ -22,11 +22,11 @@
 
 Також були об’єднані вимоги, що стосуються однієї й тієї ж проблеми безпеки, де це було доцільно.
 
-### Documented Security Decisions
+### Документовані рішення у сфері безпеки
 
-While the concept of documented security decisions may appear new in version 5.0, it is an evolution of earlier requirements related to policy application and threat modeling in version 4.0. Previously, some requirements implicitly demanded analysis to inform the implementation of security controls, such as determining permitted network connections.
+Хоча концепція документованих рішень у сфері безпеки може здатися новою у версії 5.0, вона є логічним продовженням попередніх вимог, пов’язаних із застосуванням політик і моделюванням загроз у версії 4.0. Раніше деякі вимоги неявно передбачали проведення аналізу для обґрунтування впровадження механізмів захисту таких як, визначення допустимих мережевих з’єднань.
 
-To ensure that necessary information is available for implementation and verification, these expectations are now explicitly defined as documentation requirements, making them clear, actionable, and verifiable.
+Щоб забезпечити наявність необхідної інформації для впровадження та верифікації, ці очікування тепер чітко визначені як вимоги до документації, що робить їх прозорими, практичними та такими, що піддаються перевірці.
 
 ## Structural Changes and New Chapters
 
