@@ -8,19 +8,19 @@
 
 Для полегшення переходу на версію 5.0 надаються документи зіставлення, що допомагають простежити відповідність між вимогами версій 4.x та 5.0. Ці зіставлення не є жорстко прив’язаними до конкретних релізів і можуть оновлюватися або уточнюватися за потреби.
 
-## Requirement Philosophy
+## Філософія вимог
 
-### Scope and Focus
+### Скоуп та фокус
 
-Version 4.x included requirements that did not align with the intended scope of the standard; these have been removed. Requirements that did not meet the scope criteria for 5.0 or were not verifiable have also been excluded.
+У версії 4.x були присутні вимоги, що не відповідали передбаченому скоупом стандарту; їх було вилучено. Також були виключені вимоги, які не відповідали критеріям скоупу для версії 5.0 або не підлягали перевірці.
 
-### Emphasis on Security Goals Over Mechanisms
+### Акцент на цілях безпеки, а не на механізмах
 
-In version 4.x, many requirements focused on specific mechanisms rather than the underlying security objectives. In version 5.0, requirements are centered on security goals, referencing particular mechanisms only when they are the sole practical solution, or providing them as examples or supplementary guidance.
+У версії 4.x багато вимог були зосереджені на конкретних механізмах замість того, щоб бути орієнтованими на основні цілі безпеки. У версії 5.0 вимоги побудовані навколо саме цілей безпеки; конкретні механізми згадуються лише у випадках, коли вони є єдиним практичним рішенням, або подаються як приклади чи додаткові рекомендації.
 
-This approach recognizes that multiple methods may exist to achieve a given security objective, and avoids unnecessary prescriptiveness that could limit organizational flexibility.
+Такий підхід визнає, що існує кілька способів досягнення певної цілі безпеки, й уникає зайвої нормативності, яка могла б обмежити гнучкість організацій.
 
-Additionally, requirements addressing the same security concern have been consolidated where appropriate.
+Також були об’єднані вимоги, що стосуються однієї й тієї ж проблеми безпеки, де це було доцільно.
 
 ### Documented Security Decisions
 
