@@ -22,26 +22,26 @@ OWASP, як незалежна некомерційна організація, 
 
 Організації, що сертифікують, можуть обирати свої методи тестування, але мають розкривати їх у звіті, причому ці методи мають бути відтворюваними. Для перевірки таких аспектів, як валідація вхідних даних, можуть використовуватися різні методи, наприклад, ручне тестування на проникнення або аналіз програмного коду, залежно від застосунку та вимог.
 
-### Verification Mechanisms
+### Механізми верифікації
 
-There are a number of different techniques which may be needed to verify specific ASVS requirements. Aside from penetration testing (using valid credentials to get full application coverage), verifying ASVS requirements may require access to documentation, source code, configuration, and the people involved in the development process. Especially for verifying L2 and L3 requirements. It is standard practice to provide robust evidence of findings with detailed documentation, which may include work papers, screenshots, scripts, and testing logs. Merely running an automated tool without thorough testing is insufficient for certification, as each requirement must be verifiably tested.
+Існує низка різних технік, які можуть бути необхідними для перевірки конкретних вимог ASVS. Окрім тестування на проникнення (з використанням дійсних облікових даних для повного охоплення застосунку), перевірка вимог ASVS може вимагати доступу до документації, вихідного коду, конфігурації та залучених до розробки осіб. Особливо це стосується верифікації вимог рівнів L2 і L3. Загальноприйнятою практикою є надання вагомих доказів результатів із детальною документацією, яка може включати робочі документи, скріншоти, скрипти та журнали тестування. Просте використання автоматизованого інструменту без ґрунтовного тестування недостатнє для сертифікації, оскільки кожна вимога має бути перевіреною і підтвердженою.
 
-The use of automation to verify ASVS requirements is a topic that is constantly of interest. It is therefore important to clarify some points related to automated and black box testing.
+Використання автоматизації для перевірки вимог ASVS є темою постійного інтересу. Тому важливо прояснити деякі питання, що стосуються автоматизованого та black box тестування.
 
-#### The Role of Automated Security Testing Tools
+#### Роль автоматизованих інструментів безпеки
 
-When automated security testing tools such as Dynamic and Static Application Security Testing tools (DAST and SAST) are correctly implemented in the build pipeline, they may be able to identify some security issues that should never exist. However, without careful configuration and tuning they will not provide the required coverage and the level of noise will prevent real security issues from being identified and mitigated.
+Коли автоматизовані інструменти тестування безпеки, такі як інструменти Динамічного та Статичного Аналізу Безпеки Застосунків (DAST та SAST), правильно інтегровані у пайплайн збірки, вони можуть виявляти деякі вразливості, які не повинні існувати. Однак без ретельного налаштування та оптимізації вони не забезпечать необхідного охоплення, а надмірна кількість помилкових спрацювань ускладнить ідентифікацію та усунення реальних проблем безпеки.
 
-Whilst this may provide coverage of some of the more basic and straightforward technical requirements such as those relating to output encoding or sanitiation, it is critical to note that these tools will be unable entirely to verify many of the more complicated ASVS requirements or those that relate to business logic and access control.
+Хоча це може забезпечувати перевірку деяких базових та простих технічних вимог, таких як кодування або санітизація вихідних даних, слід зазначити, що ці інструменти не зможуть повністю верифікувати складніші вимоги ASVS, зокрема ті, що стосуються бізнес-логіки та контролю доступу.
 
-For less straightforward requirements, it is likely that automation can still be utilized but application specific verifications will need to be written to achieve this. These may be similar to unit and integration tests that the organization may already be using. It may therefore be possible to use this existing test automation infrastructure to write these ASVS specific tests. Whilst doing this will require short term investment, the long term benefits being able to continually verify these ASVS requirements will be significant.
+Для менш простих вимог автоматизація, ймовірно, також може бути застосована, але для цього необхідно розробити специфічні перевірки для застосунку. Вони можуть бути схожими на юніт-тести та інтеграційні тести, які організація вже використовує. Отже, можливо скористатися існуючою інфраструктурою автоматизованого тестування для створення таких тестів, специфічних для ASVS. Хоча це потребуватиме короткострокових інвестицій, довгострокові вигоди від можливості постійно перевіряти відповідність вимогам ASVS будуть суттєвими.
 
-In summary, testable using automation != running an off the shelf tool.
+Підсумовуючи, можливість автоматизованого тестування != простому запуску готового інструменту.
 
-#### The Role of Penetration Testing
+#### Роль тестування на проникнення
 
-Whilst L1 in version 4.0 was optimized for "black box" (no documentation and no source) testing to occur, even then the standard was clear that it is not an effective assurance activity and should be actively discouraged.
+Хоча рівень L1 у версії 4.0 був оптимізований для проведення "black box" тестування (без доступу до документації та програмного коду), стандарт чітко зазначав, що таке тестування не є ефективним заходом підтвердження безпеки і його слід активно уникати.
 
-Testing without access to necessary additional information is an inefficient and ineffective mechanism for security verification, as it misses out on the possibility of reviewing the source, identifying threats and missing controls, and performing a far more thorough test in a shorter timeframe.
+Тестування без доступу до необхідної додаткової інформації є неефективним і недостатньо дієвим механізмом верифікації безпеки, оскільки воно позбавлене можливості аналізу програмного коду, ідентифікації загроз та відсутніх контролів, а також виконання значно глибшого тестування за коротший проміжок часу.
 
-It is strongly encouraged to perform documentation or source code-led (hybrid) penetration testing, which have full access to the application developers and the application's documentation, rather than traditional penetration tests. This will certainly be necessary in order to verify many of the ASVS requirements.
+Настійно рекомендується проводити тестування на проникнення із використанням документації або програмного коду (гібридний підхід), що передбачає повний доступ до розробників застосунку та його документації, а не традиційне тестування на проникнення. Такий підхід буде обов’язковим для перевірки багатьох вимог ASVS.
