@@ -47,44 +47,44 @@
 
 Раніше існуючий розділ V1 Архітектура було вилучено. Його початкові секції містили вимоги, що виходили за межі сфери стандарту, а наступні частини були розподілені по відповідних розділах, причому дублікати вимог було усунуто та за потреби уточнено.
 
-## Removal of Direct Mappings to Other Standards
+## Вилучення прямих відповідностей до інших стандартів
 
-Direct mappings to other standards have been removed from the main body of the standard. The aim is to prepare a mapping with the OWASP Common Requirement Enumeration (CRE) project, which in turn will link ASVS to a range of OWASP projects and external standards.
+Прямі відповідності до інших стандартів було вилучено з основної частини стандарту. Метою є підготовка відповідності через проєкт OWASP Common Requirement Enumeration (CRE), який, в свою чергу, забезпечить зв’язок ASVS із низкою OWASP проєктів та зовнішніх стандартів.
 
-Direct mappings to CWE and NIST are no longer maintained, as explained below.
+Прямі відповідності до CWE та NIST більше не підтримуються, відповідні пояснення наведено нижче.
 
-### Reduced Coupling with NIST Digital Identity Guidelines
+### Зменшення залежності від NIST настанов щодо цифрової ідентифікації
 
-The NIST [Digital Identity Guidelines (SP 800-63)](https://pages.nist.gov/800-63-3/) have long served as a reference for authentication and authorization controls. In version 4.x, certain chapters were closely aligned with NIST's structure and terminology.
+Настанова [Digital Identity Guidelines (SP 800-63)](https://pages.nist.gov/800-63-3/) від NIST тривалий час слугувала джерелом посилань для контролів автентифікації та авторизації. У версії 4.x окремі розділи були тісно узгоджені зі структурою та термінологією NIST.
 
-While these guidelines remain an important reference, strict alignment introduced challenges, including less widely recognized terminology, duplication of similar requirements, and incomplete mappings. Version 5.0 moves away from this approach to improve clarity and relevance.
+Попри те, що ці настанови залишаються важливим орієнтиром, суворе узгодження створювало низку ускладнень, зокрема використання менш загальновживаної термінології, дублювання подібних вимог і неповні відповідності. Версія 5.0 відходить від такого підходу з метою підвищення ясності та релевантності.
 
-### Moving Away from Common Weakness Enumeration (CWE)
+### Відмова від прямого узгодження з Common Weakness Enumeration (CWE)
 
-The [Common Weakness Enumeration (CWE)](https://cwe.mitre.org/) provides a useful taxonomy of software security weaknesses. However, challenges such as category-only CWEs, difficulties in mapping requirements to a single CWE, and the presence of imprecise mappings in version 4.x have led to the decision to discontinue direct CWE mappings in version 5.0.
+[Common Weakness Enumeration (CWE)](https://cwe.mitre.org/) є корисною таксономією слабких місць у сфері безпеки програмного забезпечення. Проте низка проблем, таких як існування CWE, що описують лише категорії, складнощі з однозначним узгодженням вимог із конкретним CWE, а також наявність неточних відповідностей у версії 4.x призвела до рішення припинити використання прямих відповідностей до CWE у версії 5.0.
 
-## Rethinking Level Definitions
+## Перегляд визначень рівнів
 
-Version 4.x described the levels as L1 ("Minimum"), L2 ("Standard"), and L3 ("Advanced"), with the implication that all applications handling sensitive data should meet at least L2.
+У версії 4.x рівні визначалися як L1 ("Мінімальний"), L2 ("Стандартний") та L3 ("Розширений"), з припущенням, що всі застосунки, які обробляють конфіденційні дані, мають відповідати щонайменше рівню L2.
 
-Version 5.0 addresses several issues with this approach which are described in the following paragraphs.
+У версії 5.0 розглянуто низку проблем, пов’язаних із цим підходом; вони описані в наступних абзацах.
 
-As a practical matter, whereas version 4.x used tick marks for level indicators, 5.x uses a simple number on all formats of the standard including markdown, PDF, DOCX, CSV, JSON and XML. For backwards compatibility, legacy versions of the CSV, JSON and XML outputs which still use tick marks are also generated.
+З практичного боку, якщо у версії 4.x для позначення рівнів використовувалися галочки, то у версії 5.x використовується просте числове позначення для всіх форматів стандарту, включаючи Markdown, PDF, DOCX, CSV, JSON та XML. З метою збереження зворотної сумісності також генеруються застарілі версії у форматах CSV, JSON та XML, які продовжують використовувати позначення галочками.
 
-### Easier Entry Level
+### Полегшений рівень входу
 
-Feedback indicated that the large number of Level 1 requirements (~120), combined with its designation as the "minimum" level that is not good enough for most applications, discouraged adoption. Version 5.0 aims to lower this barrier by defining Level 1 primarily around first-layer defense requirements, resulting in clearer and fewer requirements at that level. To demonstrate this numerically, in v4.0.3 there were 128 L1 requirements out of a total of 278 requirements, representing 46%. In 5.0.0 there are 70 L1 requirements out of a total of 345 requirements, representing 20%.
+Зворотний зв’язок показав, що велика кількість вимог Рівня 1 (~120), у поєднанні з тим, що цей рівень визначався як "мінімальний", який не підходить для більшості застосунків, відлякувала від впровадження стандарту. Версія 5.0 має на меті знизити цей бар’єр, визначаючи Рівень 1 переважно як набір вимог до першого рівня захисту, що призводить до більш чітких і меншої кількості вимог на цьому рівні. Для ілюстрації числових змін: у версії 4.0.3 було 128 вимог L1 із загальної кількості 278, що становило 46%. У версії 5.0.0 було 70 вимог L1 із 345 загалом, що становить 20%.
 
-### The Fallacy of Testability
+### Логічна хиба тестованості
 
-A key factor in selecting controls for Level 1 in version 4.x was their suitability for assessment through "black box" external penetration testing. However, this approach was not fully aligned with the intent of Level 1 as the minimum set of security controls. Some users argued that Level 1 was insufficient for securing applications, while others found it too difficult to test.
+Ключовим фактором при виборі контролів для Рівня 1 у версії 4.x була їхня придатність для оцінки за допомогою зовнішнього "black boх" тестування на проникнення. Однак цей підхід не повністю відповідав призначенню Рівня 1 як мінімального набору заходів безпеки. Деякі користувачі вважали, що Рівень 1 недостатній для захисту застосунків, тоді як інші вважали його надто складним для тестування.
 
-Relying on testability as a criterion is both relative and, at times, misleading. The fact that a requirement is testable does not guarantee that it can be tested in an automated or straightforward manner. Moreover, the most easily testable requirements are not always those with the greatest security impact or the simplest to implement.
+Опора на тестованість як критерій є відносною і часом оманливою. Той факт, що вимога є тестованою, не гарантує, що її можна перевірити автоматизовано або простим способом. Ба більше, найпростіше тестовані вимоги не завжди мають найбільший вплив на безпеку чи є найпростішими для впровадження.
 
-As such, in version 5.0, the level decisions were made primarily based on risk reduction and also keeping in mind the effort to implement.
+Тому у версії 5.0 рішення щодо рівнів приймалися перш за все з огляду на зниження ризиків, а також з урахуванням витрат ресурсів на впровадження.
 
-### Not Just About Risk
+### Не лише про ризик
 
-The use of prescriptive, risk-based levels that mandate a specific level for certain applications has proven to be overly rigid. In practice, the prioritization and implementation of security controls depend on multiple factors, including both risk reduction and the effort required for implementation.
+Використання жорстких рівнів, заснованих на ризиках, які зобов’язують застосовувати певний рівень для конкретних застосунків, виявилося надмірно жорстким. На практиці пріоритетність і впровадження заходів безпеки залежать від багатьох факторів, включно з оцінкою ризиків та зусиллями, необхідними для реалізації.
 
-Therefore, organizations are encouraged to achieve the level that they feel like they should be achieving based on their maturity and the message they want to send to their users.
+Тому організаціям рекомендується досягати того рівня, який вони вважають за потрібне, враховуючи власний рівень зрілості та основний меседж, який вони хочуть донести користувачам.
