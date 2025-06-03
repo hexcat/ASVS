@@ -19,52 +19,52 @@
 | **2.1.2** | Перевірити, що документація застосунку визначає, як здійснювати перевірку логічної та контекстної узгодженості поєднаних даних, наприклад, перевірку відповідності між назвою передмістя (suburb) та поштовим індексом (ZIP код). | 2 |
 | **2.1.3** | Перевірити, що очікування щодо меж бізнес-логіки та правил валідації задокументовані, включно з вимогами як на рівні окремого користувача, так і на глобальному рівні застосунку. | 2 |
 
-## V2.2 Input Validation
+## V2.2 Валідація вхідних даних
 
-Effective input validation controls enforce business or functional expectations around the type of data the application expects to receive. This ensures good data quality and reduces the attack surface. However, it does not remove or replace the need to use correct encoding, parameterization, or sanitization when using the data in another component or for presenting it for output.
+Ефективний контроль валідації вхідних даних забезпечує дотримання бізнес- або функціональних вимог щодо типу даних, які очікує отримати застосунок. Це гарантує високу якість даних та зменшує площу атаки. Водночас це не усуває і не замінює необхідність правильного кодування, параметризації або санітизації даних під час їх використання в інших компонентах або при відображенні вихідних даних.
 
-In this context, "input" could come from a wide variety of sources, including HTML form fields, REST requests, URL parameters, HTTP header fields, cookies, files on disk, databases, and external APIs.
+У цьому контексті "вхідні дані" можуть надходити з різноманітних джерел, включно з полями HTML-форм, REST-запитами, параметрами URL, HTTP-заголовками, cookies, файлами на диску, базами даних і зовнішніми API.
 
-A business logic control might check that a particular input is a number less than 100. A functional expectation might check that a number is below a certain threshold, as that number controls how many times a particular loop will take place, and a high number could lead to excessive processing and a potential denial of service condition.
+Контроль бізнес-логіки може, перевіряти, що конкретне вхідне значення є числом меншим за 100. Функціональна вимога може полягати у перевірці, що число не перевищує певний поріг, оскільки це число контролює кількість повторень певного циклу, і надто велике значення може призвести до надмірного навантаження та потенційної відмови в обслуговуванні (DoS).
 
-While schema validation is not explicitly mandated, it may be the most effective mechanism for full validation coverage of HTTP APIs or other interfaces that use JSON or XML.
+Хоча Schema Validation не є обов’язковою, вона може бути найефективнішим механізмом для повного охоплення валідації HTTP APIs або інших інтерфейсів, які використовують JSON або XML.
 
-Please note the following points on Schema Validation:
+Зверніть увагу на наступні моменти щодо Schema Validation:
 
-* The "published version" of the JSON Schema validation specification is considered production-ready, but not strictly speaking "stable." When using JSON Schema validation, ensure there are no gaps with the guidance in the requirements below.
-* Any JSON Schema validation libraries in use should also be monitored and updated if necessary once the standard is formalized.
-* DTD validation should not be used, and framework DTD evaluation should be disabled, to avoid issues with XXE attacks against DTDs.
+* "Опублікована версія" специфікації JSON Schema Validation вважається готовою для використання в продуктивному середовищі, але формально не є повністю "стабільною". При застосуванні JSON Schema Validation необхідно переконатися у відсутності розбіжностей із вимогами, наведеними нижче.
+* Використовувані бібліотеки для JSON Schema validation також слід контролювати і за потреби оновлювати після офіційного затвердження стандарту.
+* Валідація за допомогою DTD не рекомендується, а оцінка DTD у рамках фреймворків має бути відключена, щоб уникнути проблем із XXE-атаками, спрямованими на DTDs.
 
-| # | Description | Level |
+| # | Опис | Рівень |
 | :---: | :--- | :---: |
-| **2.2.1** | Verify that input is validated to enforce business or functional expectations for that input. This should either use positive validation against an allow list of values, patterns, and ranges, or be based on comparing the input to an expected structure and logical limits according to predefined rules. For L1, this can focus on input which is used to make specific business or security decisions. For L2 and up, this should apply to all input. | 1 |
-| **2.2.2** | Verify that the application is designed to enforce input validation at a trusted service layer. While client-side validation improves usability and should be encouraged, it must not be relied upon as a security control. | 1 |
-| **2.2.3** | Verify that the application ensures that combinations of related data items are reasonable according to the pre-defined rules. | 2 |
+| **2.2.1** | Перевірити, що вхідні дані валідовані для забезпечення дотримання бізнесових або функціональних вимог до цих вхідних даних. Валідація має виконуватися або шляхом позитивної перевірки за дозволеним переліком значень, шаблонів та діапазонів, або шляхом порівняння вхідних даних із очікуваною структурою та логічними межами відповідно до заздалегідь визначених правил. Для рівня L1, валідація може зосереджуватися на вхідних даних, які використовуються для прийняття конкретних бізнесових або безпекових рішень. Для рівня L2 і вище, ця вимога має застосовуватися до всіх вхідних даних. | 1 |
+| **2.2.2** | Перевірити, що застосунок спроєктовано таким чином, щоб забезпечувати валідацію вхідних даних на рівні довіреного сервісного шару. Хоча валідація на стороні клієнта покращує зручність використання і її слід заохочувати, її не можна розглядати як єдиний захисний механізм безпеки. | 1 |
+| **2.2.3** | Перевірити, що застосунок гарантує, що поєднання пов’язаних даних є логічно правильним відповідно до заздалегідь визначених правил. | 2 |
 
-## V2.3 Business Logic Security
+## V2.3 Безпека бізнес-логіки
 
-This section considers key requirements to ensure that the application enforces business logic processes in the correct way and is not vulnerable to attacks that exploit the logic and flow of the application.
+Цей розділ розглядає основні вимоги для забезпечення того, щоб застосунок коректно реалізовував бізнес-логіку та був захищений від атак, які експлуатують логіку та послідовність роботи застосунку.
 
-| # | Description | Level |
+| # | Опис | Рівень |
 | :---: | :--- | :---: |
-| **2.3.1** | Verify that the application will only process business logic flows for the same user in the expected sequential step order and without skipping steps. | 1 |
-| **2.3.2** | Verify that business logic limits are implemented per the application's documentation to avoid business logic flaws being exploited. | 2 |
-| **2.3.3** | Verify that transactions are being used at the business logic level such that either a business logic operation succeeds in its entirety or it is rolled back to the previous correct state. | 2 |
-| **2.3.4** | Verify that business logic level locking mechanisms are used to ensure that limited quantity resources (such as theater seats or delivery slots) cannot be double-booked by manipulating the application's logic. | 2 |
-| **2.3.5** | Verify that high-value business logic flows require multi-user approval to prevent unauthorized or accidental actions. This could include but is not limited to large monetary transfers, contract approvals, access to classified information, or safety overrides in manufacturing. | 3 |
+| **2.3.1** | Перевірити, що застосунок обробляє бізнес-логіку для одного й того ж користувача лише у передбаченому послідовному порядку кроків і без пропуску цих кроків. | 1 |
+| **2.3.2** | Перевірити, що обмеження бізнес-логіки реалізовані відповідно до документації застосунку, щоб уникнути експлуатації вразливостей у бізнес-логіці. | 2 |
+| **2.3.3** | Перевірити, що на рівні бізнес-логіки використовуються транзакції, які забезпечують повне виконання операції або її відкат до попереднього коректного стану. | 2 |
+| **2.3.4** | Перевірити, що на рівні бізнес-логіки застосовуються механізми блокування для запобігання подвійного резервування обмежених ресурсів (наприклад, місць у театрі або часових слотів доставки) шляхом маніпуляції логікою застосунку. | 2 |
+| **2.3.5** | Перевірити, що для бізнес-процесів із високою цінністю, потрібне схвалення кількох користувачів (multi-user approval), щоб запобігти несанкціонованим або випадковим діям. Це може стосуватися, зокрема, великих грошових переказів, затвердження контрактів, доступу до конфіденційної інформації або відключення систем безпеки у виробництві. | 3 |
 
-## V2.4 Anti-automation
+## V2.4 Антиавтоматизація
 
-This section includes anti-automation controls to ensure that human-like interactions are required and excessive automated requests are prevented.
+Цей розділ містить антиавтоматизаційні контролі, які забезпечують необхідність взаємодії, схожої на людську, та запобігають надмірній кількості автоматизованих запитів.
 
-| # | Description | Level |
+| # | Опис | Рівень |
 | :---: | :--- | :---: |
-| **2.4.1** | Verify that anti-automation controls are in place to protect against excessive calls to application functions that could lead to data exfiltration, garbage-data creation, quota exhaustion, rate-limit breaches, denial-of-service, or overuse of costly resources. | 2 |
-| **2.4.2** | Verify that business logic flows require realistic human timing, preventing excessively rapid transaction submissions. | 3 |
+| **2.4.1** | Перевірити, що впроваджено антиавтоматизаційні контролі для захисту від надмірної кількості викликів функцій застосунку, які можуть призвести до витоку даних, створення некоректних даних, вичерпання квот, перевищення лімітів на частоту запитів, відмови в обслуговуванні(DoS) або надмірного використання дорогих ресурсів. | 2 |
+| **2.4.2** | Перевірити, що бізнес-процеси враховують реалістичні часові проміжки між діями людини, запобігаючи надто швидкому надходженню транзакцій. | 3 |
 
-## References
+## Посилання
 
-For more information, see also:
+Для додаткової інформації дивіться також:
 
 * [OWASP Web Security Testing Guide: Input Validation Testing](https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/07-Input_Validation_Testing/README.html)
 * [OWASP Web Security Testing Guide: Business Logic Testing](https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/10-Business_Logic_Testing/README)
