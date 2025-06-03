@@ -28,24 +28,24 @@
 
 Щоб забезпечити наявність необхідної інформації для впровадження та верифікації, ці очікування тепер чітко визначені як вимоги до документації, що робить їх прозорими, практичними та такими, що піддаються перевірці.
 
-## Structural Changes and New Chapters
+## Структурні зміни та нові розділи
 
-Several chapters in version 5.0 introduce entirely new content:
+У версії 5.0 додано кілька розділів із повністю новим змістом:
 
-* OAuth and OIDC – Given the widespread adoption of these protocols for access delegation and single sign-on, dedicated requirements have been added to address the diverse scenarios developers may encounter. This area may eventually evolve into a standalone standard, similar to the treatment of Mobile and IoT requirements in previous versions.
-* WebRTC – As this technology gains popularity, its unique security considerations and challenges are now addressed in a dedicated section.
+* OAuth та OIDC – з огляду на широке впровадження цих протоколів для делегування доступу та єдиного входу (SSO), додано окремі вимоги, які охоплюють різноманітні сценарії, з якими можуть стикатися розробники. У перспективі цей розділ може еволюціонувати в окремий стандарт, подібно до того, як раніше були виділені вимоги до мобільних застосунків і IoT.
+* WebRTC – у зв’язку зі зростаючою популярністю цієї технології, її специфічні виклики та міркування безпеки тепер охоплено окремим підрозділом.
 
-Efforts have also been made to ensure that chapters and sections are organized around coherent sets of related requirements.
+Також було докладено зусиль, щоб розділи та секції були структуровані навколо логічно пов’язаних груп вимог.
 
-This restructuring has led to the creation of additional chapters:
+Ця реструктуризація призвела до створення додаткових розділів:
 
-* Self-contained Tokens – Formerly grouped under session management, self-contained tokens are now recognized as a distinct mechanism and a foundational element for stateless communication (such as in OAuth and OIDC). Due to their unique security implications, they are addressed in a dedicated chapter, with some new requirements introduced in version 5.x.
-* Web Frontend Security – With the increasing complexity of browser-based applications and the rise of API-only architectures, frontend security requirements have been separated into their own chapter.
-* Secure Coding and Architecture – New requirements addressing general security practices that did not fit within existing chapters have been grouped here.
+* Самодостатні токени – раніше об’єднані в розділі управління сесіями, Самодостатні токени тепер визнані окремим механізмом і фундаментальним елементом безстанового обміну даними (наприклад, у OAuth та OIDC). Через їхні унікальні аспекти безпеки вони розглядаються в окремому розділі, у версії 5.x запроваджено нові вимоги.
+* Безпека веб-фронтенду – з огляду на зростаючу складність браузерних застосунків та поширення архітектур, що базуються виключно на API, вимоги до безпеки фронтенду винесено в окремий розділ.
+* Безпечне програмування та архітектура – нові вимоги, що охоплюють загальні практики безпеки, які не вписувалися у існуючі розділи, зібрані тут.
 
-Other organizational changes in version 5.0 were made to clarify intent. For example, input validation requirements were moved alongside business logic, reflecting their role in enforcing business rules, rather than being grouped with sanitization and encoding.
+Інші організаційні зміни у версії 5.0 були спрямовані на покращення прозорості намірів. Наприклад, вимоги щодо валідації вхідних даних було перенесено до розділу, присвяченого бізнес-логіці, що відображає їхню роль у забезпеченні дотримання бізнес-правил, замість того, щоб групувати їх з санітизацією та кодуванням.
 
-The former V1 Architecture chapter has been removed. Its initial section contained requirements that were out of scope, while subsequent sections have been redistributed to relevant chapters, with requirements deduplicated and clarified as necessary.
+Раніше існуючий розділ V1 Архітектура було вилучено. Його початкові секції містили вимоги, що виходили за межі сфери стандарту, а наступні частини були розподілені по відповідних розділах, причому дублікати вимог було усунуто та за потреби уточнено.
 
 ## Removal of Direct Mappings to Other Standards
 
