@@ -38,26 +38,26 @@
 
 Примітка: Використання параметризованих запитів або екранування SQL не завжди є достатнім. Частини запиту, такі як імена таблиць і стовпців (включно з іменами стовпців у "ORDER BY"), не можуть бути екрановані. Якщо у цих полях використовувати екрановані дані, отримані від користувача, це призведе до помилок у запитах або SQL-ін’єкцій.
 
-## V1.3 Sanitization
+## V1.3 Санітизація
 
-The ideal protection against using untrusted content in an unsafe context is to use context-specific encoding or escaping, which maintains the same semantic meaning of the unsafe content but renders it safe for use in that particular context, as discussed in more detail in the previous section.
+Ідеальним захистом від використання недовіреного контенту у небезпечному контексті є застосування контекстно-залежного кодування або екранування, яке зберігає семантичне значення таких даних, але робить їх безпечними для використання саме в цьому контексті, що детальніше описано у попередньому розділі.
 
-Where this is not possible, sanitization becomes necessary, removing potentially dangerous characters or content. In some cases, this may change the semantic meaning of the input, but for security reasons, there may be no alternative.
+Якщо це неможливо, тоді необхідна санітизація, видалення потенційно небезпечних символів або контенту. У деяких випадках це може змінити семантичне значення вхідних даних, але з міркувань безпеки альтернативи може не бути.
 
-| # | Description | Level |
+| # | Опис | Рівень |
 | :---: | :--- | :---: |
-| **1.3.1** | Verify that all untrusted HTML input from WYSIWYG editors or similar is sanitized using a well-known and secure HTML sanitization library or framework feature. | 1 |
-| **1.3.2** | Verify that the application avoids the use of eval() or other dynamic code execution features such as Spring Expression Language (SpEL). Where there is no alternative, any user input being included must be sanitized before being executed. | 1 |
-| **1.3.3** | Verify that data being passed to a potentially dangerous context is sanitized beforehand to enforce safety measures, such as only allowing characters which are safe for this context and trimming input which is too long. | 2 |
-| **1.3.4** | Verify that user-supplied Scalable Vector Graphics (SVG) scriptable content is validated or sanitized to contain only tags and attributes (such as draw graphics) that are safe for the application, e.g., do not contain scripts and foreignObject. | 2 |
-| **1.3.5** | Verify that the application sanitizes or disables user-supplied scriptable or expression template language content, such as Markdown, CSS or XSL stylesheets, BBCode, or similar. | 2 |
-| **1.3.6** | Verify that the application protects against Server-side Request Forgery (SSRF) attacks, by validating untrusted data against an allowlist of protocols, domains, paths and ports and sanitizing potentially dangerous characters before using the data to call another service. | 2 |
-| **1.3.7** | Verify that the application protects against template injection attacks by not allowing templates to be built based on untrusted input. Where there is no alternative, any untrusted input being included dynamically during template creation must be sanitized or strictly validated. | 2 |
-| **1.3.8** | Verify that the application appropriately sanitizes untrusted input before use in Java Naming and Directory Interface (JNDI) queries and that JNDI is configured securely to prevent JNDI injection attacks. | 2 |
-| **1.3.9** | Verify that the application sanitizes content before it is sent to memcache to prevent injection attacks. | 2 |
-| **1.3.10** | Verify that format strings which might resolve in an unexpected or malicious way when used are sanitized before being processed. | 2 |
-| **1.3.11** | Verify that the application sanitizes user input before passing to mail systems to protect against SMTP or IMAP injection. | 2 |
-| **1.3.12** | Verify that regular expressions are free from elements causing exponential backtracking, and ensure untrusted input is sanitized to mitigate ReDoS or Runaway Regex attacks. | 3 |
+| **1.3.1** | Перевірити, що весь недовірений HTML-вміст із WYSIWYG редакторів або подібних джерел санітизується з використанням відомої та безпечної бібліотеки або особливостей фреймворку для санітизації HTML. | 1 |
+| **1.3.2** | Перевірити, що застосунок уникає використання eval() або інших засобів динамічного виконання коду, таких як Spring Expression Language (SpEL). Якщо іншого варіанту немає, будь-які користувацькі дані, які включені до виконання, мають бути санітизовані перед виконанням. | 1 |
+| **1.3.3** | Перевірити, що дані, які передаються у потенційно небезпечний контекст, попередньо санітізовані для забезпечення заходів безпеки, зокрема допускати лише символи, безпечні для цього контексту, а також обрізати вхідні дані, які мають надмірну довжину. | 2 |
+| **1.3.4** | Перевірити, що скриптовий контент Scalable Vector Graphics (SVG), наданий користувачем, проходить валідацію або санітизацію, щоб містити лише теги та атрибути (наприклад, для малювання графіки), які є безпечними для застосунку, зокрема не містити скриптів і foreignObject. | 2 |
+| **1.3.5** | Перевірити, що застосунок очищує або вимикає скриптовий контент або контент мов виразів і шаблонів, наданий користувачем, наприклад Markdown, CSS або XSL-стилі, BBCode чи подібні. | 2 |
+| **1.3.6** | Перевірити, що застосунок захищений від атак Server-side Request Forgery (SSRF) шляхом валідації ненадійних даних за списком дозволених протоколів, доменів, шляхів і портів, а також санітизація потенційно небезпечних символів перед використанням цих даних для виклику іншого сервісу. | 2 |
+| **1.3.7** | Перевірити, що застосунок захищений від атак template injection, не дозволяючи створювати шаблони на основі ненадійного вводу. Якщо альтернативи немає, будь-який ненадійний ввід, який динамічно включається під час створення шаблону, повинен проходити санітизацію або сувору валідацію. | 2 |
+| **1.3.8** | Перевірити, що застосунок належним чином санітизує ненадійний ввід перед використанням у запитах Java Naming and Directory Interface (JNDI) та що JNDI налаштовано безпечно для запобігання атакам JNDI injection. | 2 |
+| **1.3.9** | Перевірити, що застосунок очищує контент перед відправленням у memcache для запобігання атакам ін’єкцій. | 2 |
+| **1.3.10** | Перевірити, що рядки форматування, які можуть виконуватися несподіваним або зловмисним способом при використанні, проходять санітизацію перед обробкою. | 2 |
+| **1.3.11** | Перевірити, що застосунок очищує користувацькі вхідні дані перед передачею до поштових систем для захисту від SMTP- або IMAP-ін’єкцій. | 2 |
+| **1.3.12** | Перевірити, що регулярні вирази не містять елементів, які викликають експоненціальний backtracking, а також забезпечити очищення ненадійного вводу для зменшення ризику атак типу ReDoS або Runaway Regex. | 3 |
 
 ## V1.4 Memory, String, and Unmanaged Code
 
