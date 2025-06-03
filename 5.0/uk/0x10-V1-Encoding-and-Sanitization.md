@@ -55,37 +55,37 @@
 | **1.3.7** | Перевірити, що застосунок захищений від атак template injection, не дозволяючи створювати шаблони на основі ненадійного вводу. Якщо альтернативи немає, будь-який ненадійний ввід, який динамічно включається під час створення шаблону, повинен проходити санітизацію або сувору валідацію. | 2 |
 | **1.3.8** | Перевірити, що застосунок належним чином санітизує ненадійний ввід перед використанням у запитах Java Naming and Directory Interface (JNDI) та що JNDI налаштовано безпечно для запобігання атакам JNDI injection. | 2 |
 | **1.3.9** | Перевірити, що застосунок очищує контент перед відправленням у memcache для запобігання атакам ін’єкцій. | 2 |
-| **1.3.10** | Перевірити, що рядки форматування, які можуть виконуватися несподіваним або зловмисним способом при використанні, проходять санітизацію перед обробкою. | 2 |
+| **1.3.10** | Перевірити, що рядки форматування, які можуть розпізнаватися (або оброблятися) несподіваним або зловмисним способом при використанні, проходять санітизацію перед обробкою. | 2 |
 | **1.3.11** | Перевірити, що застосунок очищує користувацькі вхідні дані перед передачею до поштових систем для захисту від SMTP- або IMAP-ін’єкцій. | 2 |
 | **1.3.12** | Перевірити, що регулярні вирази не містять елементів, які викликають експоненціальний backtracking, а також забезпечити очищення ненадійного вводу для зменшення ризику атак типу ReDoS або Runaway Regex. | 3 |
 
-## V1.4 Memory, String, and Unmanaged Code
+## V1.4 Пам’ять, рядки та некерований код
 
-The following requirements address risks associated with unsafe memory use, which generally apply when the application uses a systems language or unmanaged code.
+Наступні вимоги стосуються ризиків, пов’язаних із небезпечним використанням пам’яті, які зазвичай стосуються випадків, коли застосунок використовує системні мови програмування або некерований код.
 
-In some cases, it may be possible to achieve this by setting compiler flags that enable buffer overflow protections and warnings, including stack randomization and data execution prevention, and that break the build if unsafe pointer, memory, format string, integer, or string operations are found.
+В окремих випадках це можна досягти шляхом встановлення прапорців компілятора, які вмикають захист від переповнення буфера та попередження, включно з рандомізацією стека і забороною виконання даних, а також припиняють збірку, якщо виявляються небезпечні операції з покажчиками, пам’яттю, рядками форматування, цілими числами або рядками.
 
-| # | Description | Level |
+| # | Опис | Рівень |
 | :---: | :--- | :---: |
-| **1.4.1** | Verify that the application uses memory-safe string, safer memory copy and pointer arithmetic to detect or prevent stack, buffer, or heap overflows. | 2 |
-| **1.4.2** | Verify that sign, range, and input validation techniques are used to prevent integer overflows. | 2 |
-| **1.4.3** | Verify that dynamically allocated memory and resources are released, and that references or pointers to freed memory are removed or set to null to prevent dangling pointers and use-after-free vulnerabilities. | 2 |
+| **1.4.1** | Перевірити, що застосунок використовує безпечні для пам’яті операції над рядками, захищене копіювання пам’яті та арифметику покажчиків для виявлення або запобігання переповненню стека, буфера або купи. | 2 |
+| **1.4.2** | Перевірити, що застосовуються техніки перевірки знаку, діапазону та валідації вводу для запобігання переповненню цілих чисел. | 2 |
+| **1.4.3** | Перевірити, що динамічно виділена пам’ять та ресурси звільняються, а посилання або покажчики на звільнену пам’ять видаляються або встановлюються в значення null для запобігання висячих покажчиків та вразливостей типу use-after-free. | 2 |
 
-## V1.5 Safe Deserialization
+## V1.5 Безпечна десеріалізація
 
-The conversion of data from a stored or transmitted representation into actual application objects (deserialization) has historically been the cause of various code injection vulnerabilities. It is important to perform this process carefully and safely to avoid these types of issues.
+Перетворення даних із збереженого або переданого представлення у фактичні об’єкти застосунку (десеріалізація) історично було причиною різноманітних вразливостей, пов’язаних із ін’єкцією коду. Важливо виконувати цей процес ретельно та безпечно, щоб уникнути подібних проблем.
 
-In particular, certain methods of deserialization have been identified by programming language or framework documentation as insecure and cannot be made safe with untrusted data. For each mechanism in use, careful due diligence should be performed.
+Зокрема, деякі методи десеріалізації, визначені документацією мов програмування або фреймворків як небезпечні, не можуть бути безпечно використані з ненадійними даними. Для кожного механізму, що використовується, слід провести ретельну перевірку.
 
-| # | Description | Level |
+| # | Опис | Рівень |
 | :---: | :--- | :---: |
-| **1.5.1** | Verify that the application configures XML parsers to use a restrictive configuration and that unsafe features such as resolving external entities are disabled to prevent XML eXternal Entity (XXE) attacks. | 1 |
-| **1.5.2** | Verify that deserialization of untrusted data enforces safe input handling, such as using an allowlist of object types or restricting client-defined object types, to prevent deserialization attacks. Deserialization mechanisms that are explicitly defined as insecure must not be used with untrusted input. | 2 |
-| **1.5.3** | Verify that different parsers used in the application for the same data type (e.g., JSON parsers, XML parsers, URL parsers), perform parsing in a consistent way and use the same character encoding mechanism to avoid issues such as JSON Interoperability vulnerabilities or different URI or file parsing behavior being exploited in Remote File Inclusion (RFI) or Server-side Request Forgery (SSRF) attacks. | 3 |
+| **1.5.1** | Перевірити, що застосунок налаштовує XML-парсери з обмеженою конфігурацією та вимикає небезпечні функції, такі як розв’язання зовнішніх сутностей, щоб запобігти атакам типу XML eXternal Entity (XXE). | 1 |
+| **1.5.2** | Перевірити, що десеріалізація ненадійних даних забезпечує безпечну обробку вводу, наприклад, шляхом використання списку дозволених типів об’єктів або обмеження типів об’єктів, визначених клієнтом, для запобігання атакам під час десеріалізації. Механізми десеріалізації, які явно визначені як небезпечні, не повинні використовуватися з ненадійним вводом. | 2 |
+| **1.5.3** | Перевірити, що різні парсери, які використовуються у застосунку для одного типу даних (наприклад, JSON-парсери, XML-парсери, URL-парсери), виконують парсинг узгоджено та використовують однаковий механізм кодування символів, щоб уникнути проблем, таких як вразливості типу JSON Interoperability, або різної поведінки парсингу URI чи файлів, яку можуть використовувати в атаках типу Remote File Inclusion (RFI) або Server-side Request Forgery (SSRF). | 3 |
 
-## References
+## Посилання
 
-For more information, see also:
+Для додаткової інформації дивіться також:
 
 * [OWASP LDAP Injection Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/LDAP_Injection_Prevention_Cheat_Sheet.html)
 * [OWASP Cross Site Scripting Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)
@@ -96,7 +96,7 @@ For more information, see also:
 * [DOMPurify - Client-side HTML Sanitization Library](https://github.com/cure53/DOMPurify)
 * [RFC4180 - Common Format and MIME Type for Comma-Separated Values (CSV) Files](https://datatracker.ietf.org/doc/html/rfc4180#section-2)
 
-For more information, specifically on deserialization or parsing issues, please see:
+Для додаткової інформації, зокрема щодо проблем десеріалізації або парсингу, дивіться:
 
 * [OWASP Deserialization Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html)
 * [An Exploration of JSON Interoperability Vulnerabilities](https://bishopfox.com/blog/json-interoperability-vulnerabilities)
