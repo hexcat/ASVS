@@ -19,7 +19,7 @@ Each document below tracks its translation progress using a single status symbol
 | 0x00-Header.yaml | 🔍 Reviewed |
 | 0x01-Frontispiece.md | 🔍 Reviewed |
 | 0x02-Preface.md | 🔍 Reviewed |
-| 0x03-What-is-the-ASVS.md | ✅ Translated |
+| 0x03-What-is-the-ASVS.md | 🔄 In Progress |
 | 0x04-Assessment_and_Certification.md | ✅ Translated |
 | 0x05-For-Users-Of-4.0.md | ✅ Translated |
 | 0x10-V1-Encoding-and-Sanitization.md | ✅ Translated |
