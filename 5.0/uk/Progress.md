@@ -3,7 +3,7 @@
 | Progress type | Files done | Percentage | Status |
 | :--- | :---: | :---: | :---: |
 | Translated (draft) | 10 / 28 | 36% | ✅ |
-| Reviewed (final) | 3 / 28 | 14% | 🔍 |
+| Reviewed (final) | 4 / 28 | 14% | 🔍 |
 
 Each document below tracks its translation progress using a single status symbol:
 
