@@ -3,7 +3,7 @@
 | Progress type | Files done | Percentage | Status |
 | :--- | :---: | :---: | :---: |
 | Translated (draft) | 10 / 28 | 36% | ✅ |
-| Reviewed (final) | 6 / 28 | 21% | 🔍 |
+| Reviewed (final) | 8 / 28 | 29% | 🔍 |
 
 Each document below tracks its translation progress using a single status symbol:
 
@@ -22,9 +22,9 @@ Each document below tracks its translation progress using a single status symbol
 | 0x03-What-is-the-ASVS.md | 🔍 Reviewed |
 | 0x04-Assessment_and_Certification.md | 🔍 Reviewed |
 | 0x05-For-Users-Of-4.0.md | 🔍 Reviewed |
-| 0x10-V1-Encoding-and-Sanitization.md | 🔄 In Progress |
-| 0x11-V2-Validation-and-Business-Logic.md | ✅ Translated |
-| 0x12-V3-Web-Frontend-Security.md | ✅ Translated |
+| 0x10-V1-Encoding-and-Sanitization.md | 🔍 Reviewed |
+| 0x11-V2-Validation-and-Business-Logic.md | 🔍 Reviewed |
+| 0x12-V3-Web-Frontend-Security.md | 🔄 In Progress |
 | 0x13-V4-API-and-Web-Service.md | ✅ Translated |
 | 0x14-V5-File-Handling.md | ⬜ Not started |
 | 0x15-V6-Authentication.md | ⬜ Not started |
